@@ -37,9 +37,9 @@ Hi! My name is [Your Full Name]
             Snake Game
         </div>
     </a>
-    <a href="{{site.baseurl}}/turtle" style="text-decoration: none;">
+    <a href="{{site.baseurl}}/connect4/play" style="text-decoration: none;">
         <div style="background-color: #FF0000; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
-            Turtle
+            Connect 4
         </div>
     </a>
 </div>

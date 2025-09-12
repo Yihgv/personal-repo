@@ -3,7 +3,8 @@ description: "Class of 2026"
 owner_name: John Mortensen
 github_username: jm1021 
 github_repo: "student" 
-baseurl: "/student" 
+url: "https://debuggers-csp.github.io"
+baseurl: "/CSP-team" 
 future: true
 remote_theme: jekyll/minima
 minima:
@@ -15,6 +16,8 @@ minima:
 plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
+  - jekyll-seo-tag
+  - jekyll-feed
 header_pages:
   - navigation/blog.md
   - navigation/search.md

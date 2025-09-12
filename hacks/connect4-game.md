@@ -8,12 +8,28 @@ permalink: /connect4/play/
   <!-- Start Screen -->
   <section id="start" class="card center">
     <h1 class="title">Connect 4</h1>
-    <p class="muted">Choose a timer per player</p>
+    <p class="muted">Choose a timer per player and how you want to play</p>
     <div class="row">
       <button class="btn" data-time="180">3 Minutes</button>
       <button class="btn" data-time="300">5 Minutes</button>
       <button class="btn" data-time="600">10 Minutes</button>
     </div>
+    <br>
+    <div class="row center" style="gap:16px; justify-content:center;">
+      <label style="display:flex; align-items:center; gap:8px;">
+        <input type="checkbox" id="vsBot" />
+        Play vs Bot
+      </label>
+      <label style="display:flex; align-items:center; gap:8px;">
+        Difficulty
+        <select id="botLevel" class="btn" style="padding:8px 12px; cursor:pointer;">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </label>
+    </div>
+    <p class="press">Bot plays as Yellow and moves after you. Tip: center columns are strong!</p>
     <p class="press">…or press <kbd>Enter</kbd> to start with 5:00</p>
   </section>
 
@@ -482,15 +498,25 @@ class Connect4Game {
     this.ui = new GameUI();
     this.isRunning = false;
     this.isAnimating = false;
+    // Bot settings
+    this.botEnabled = false;
+    this.botColor = 'yellow';
+    this.botLevel = 'medium';
+    this.botDelayMs = 400;
     
     this.initializeEventListeners();
   }
 
   initializeEventListeners() {
-    // Start screen buttons
-    this.ui.elements.start.querySelectorAll('.btn').forEach(button => {
+    // Start screen time buttons (only elements with data-time)
+    this.ui.elements.start.querySelectorAll('[data-time]').forEach(button => {
       button.addEventListener('click', () => {
         const timeInSeconds = parseInt(button.dataset.time);
+        // Read bot options
+        const vsBotEl = document.getElementById('vsBot');
+        const botLevelEl = document.getElementById('botLevel');
+        this.botEnabled = !!(vsBotEl && vsBotEl.checked);
+        this.botLevel = botLevelEl ? botLevelEl.value : 'medium';
         this.startGame(timeInSeconds);
       });
     });
@@ -498,6 +524,11 @@ class Connect4Game {
     // Enter key for default time
     window.addEventListener('keydown', (e) => {
       if (!this.ui.elements.game.classList.contains('hidden') || e.key !== 'Enter') return;
+      // Read bot options on Enter
+      const vsBotEl = document.getElementById('vsBot');
+      const botLevelEl = document.getElementById('botLevel');
+      this.botEnabled = !!(vsBotEl && vsBotEl.checked);
+      this.botLevel = botLevelEl ? botLevelEl.value : 'medium';
       this.startGame(300);
     });
 
@@ -532,45 +563,129 @@ class Connect4Game {
       () => this.handleTimerTick(),
       (player) => this.handleTimeUp(player)
     );
+
+    // If bot is enabled and bot goes first (if we ever flip), schedule. Currently Red starts.
+    if (this.botEnabled && this.currentPlayer.color === this.botColor) {
+      this.scheduleBotMove();
+    }
   }
 
   async handleBoardClick(event) {
     const hole = event.target.closest('.hole');
     if (!hole || !this.isRunning || this.isAnimating) return;
+    // If playing vs bot, ignore clicks when it's bot's turn
+    if (this.botEnabled && this.currentPlayer.color === this.botColor) return;
 
     const col = parseInt(hole.dataset.col);
+    await this.playMove(col);
+
+    // If bot is enabled and it's now bot's turn, schedule bot move
+    if (this.botEnabled && this.isRunning && this.currentPlayer.color === this.botColor) {
+      this.scheduleBotMove();
+    }
+  }
+
+  async playMove(col) {
     const row = this.board.getDropRow(col);
-    
     if (row < 0) return; // Column is full
     if (!this.currentPlayer.usesCoin()) return; // No coins left
 
     this.isAnimating = true;
-
-    // Animate the falling coin
     await this.ui.animateFallingCoin(col, row, this.currentPlayer.color);
-
-    // Place the piece on the board
     this.board.placePiece(row, col, this.currentPlayer.color);
-    
-    // Update UI
+
     this.ui.updateBoard(this.board);
     this.ui.updatePlayerInfo(this.redPlayer, this.yellowPlayer);
-
     this.isAnimating = false;
 
-    // Check for win or draw
     if (this.board.checkWin(row, col)) {
       this.endGame(`${this.currentPlayer.name} wins!`);
       return;
     }
-
     if (this.board.isFull()) {
       this.endGame('Draw!');
       return;
     }
-
-    // Switch players
     this.switchPlayer();
+  }
+
+  scheduleBotMove() {
+    // Prevent user clicks during bot move window
+    this.ui.elements.board.style.pointerEvents = 'none';
+    setTimeout(() => {
+      if (!this.isRunning || this.isAnimating || this.currentPlayer.color !== this.botColor) return;
+      const col = this.chooseBotColumn();
+      if (col !== null && col !== undefined) {
+        this.playMove(col);
+        // If still bot's turn (unlikely), chain another move
+        if (this.botEnabled && this.isRunning && this.currentPlayer.color === this.botColor) {
+          this.scheduleBotMove();
+        }
+      }
+      // Re-enable clicks
+      this.ui.elements.board.style.pointerEvents = '';
+    }, this.botDelayMs);
+  }
+
+  getValidColumns() {
+    const cols = [];
+    for (let c = 0; c < this.board.cols; c++) {
+      if (this.board.isValidColumn(c)) cols.push(c);
+    }
+    return cols;
+  }
+
+  wouldWin(col, color) {
+    const row = this.board.getDropRow(col);
+    if (row < 0) return false;
+    // simulate
+    this.board.grid[row][col] = color;
+    const win = this.board.checkWin(row, col);
+    this.board.grid[row][col] = null;
+    return win;
+  }
+
+  centerPreferenceOrder() {
+    // Prefer center then outward: 3,4,2,5,1,6,0 for 7 columns
+    const center = Math.floor(this.board.cols / 2);
+    const order = [center];
+    for (let offset = 1; offset <= center; offset++) {
+      const left = center - offset;
+      const right = center + offset;
+      if (right < this.board.cols) order.push(right);
+      if (left >= 0) order.push(left);
+    }
+    return order;
+  }
+
+  chooseBotColumn() {
+    const valid = this.getValidColumns();
+    if (valid.length === 0) return null;
+
+    const me = this.botColor; // 'yellow'
+    const opp = me === 'red' ? 'yellow' : 'red';
+    const level = this.botLevel || 'medium';
+
+    // Easy: pick random valid
+    if (level === 'easy') {
+      return valid[Math.floor(Math.random() * valid.length)];
+    }
+
+    // Medium/Hard: heuristics
+    // 1) If any winning move available, take it
+    for (const c of valid) {
+      if (this.wouldWin(c, me)) return c;
+    }
+    // 2) Block opponent's immediate win
+    for (const c of valid) {
+      if (this.wouldWin(c, opp)) return c;
+    }
+    // 3) Prefer center columns
+    const pref = this.centerPreferenceOrder().filter(c => valid.includes(c));
+    if (pref.length > 0) return pref[0];
+
+    // 4) Fallback random
+    return valid[Math.floor(Math.random() * valid.length)];
   }
 
   handleTimerTick() {

@@ -5,6 +5,7 @@ permalink: /connect4/play/
 ---
 
 <div id="app" class="wrap">
+  <!-- Start Screen collects time selection and bot options, then transitions to the Game Screen -->
   <!-- Start Screen -->
   <section id="start" class="card center">
     <h1 class="title">Connect 4</h1>
@@ -16,10 +17,12 @@ permalink: /connect4/play/
     </div>
     <br>
     <div class="row center" style="gap:16px; justify-content:center;">
+      <!-- Bot option: when enabled, Yellow is controlled by AI -->
       <label style="display:flex; align-items:center; gap:8px;">
         <input type="checkbox" id="vsBot" />
         Play vs Bot
       </label>
+      <!-- Bot difficulty (Easy=random, Medium/Hard=heuristics) -->
       <label style="display:flex; align-items:center; gap:8px;">
         Difficulty
         <select id="botLevel" class="btn" style="padding:8px 12px; cursor:pointer;">
@@ -167,7 +170,7 @@ permalink: /connect4/play/
   #board .hole.red::after{background:var(--red)}
   #board .hole.yellow::after{background:var(--yellow)}
 
-  /* Falling coin overlay */
+  /* Falling coin overlay used to animate a coin drop, separate from static cells */
   .coin{
     position:absolute; width:var(--cell); height:var(--cell); border-radius:50%;
     left:0; top:0; transform:translate(0,-100%); will-change:transform;
@@ -177,7 +180,7 @@ permalink: /connect4/play/
   .coin.red{background:var(--red)}
   .coin.yellow{background:var(--yellow)}
 
-  /* Win Overlay */
+  /* Win Overlay shown when game ends by win or draw */
   .win-overlay{
     position: fixed;
     top: 0;
@@ -230,6 +233,10 @@ permalink: /connect4/play/
 <!-- ========= OOP Logic ========= -->
 <script>
 // ========= PLAYER CLASS =========
+/**
+ * Represents a player state: name, color, remaining time, and coin count.
+ * Each move consumes a coin; timers tick every second while it's the player's turn.
+ */
 class Player {
   constructor(name, color) {
     this.name = name;
@@ -267,6 +274,10 @@ class Player {
 }
 
 // ========= GAME BOARD CLASS =========
+/**
+ * Maintains the 2D grid of the board and provides operations to query
+ * valid columns, compute drop rows, place pieces, and detect wins.
+ */
 class GameBoard {
   constructor(rows = 6, cols = 7) {
     this.rows = rows;
@@ -303,6 +314,7 @@ class GameBoard {
   }
 
   checkWin(row, col) {
+    // Check 4-in-a-row across vertical, horizontal, and both diagonals
     const color = this.grid[row][col];
     if (!color) return false;
 
@@ -348,6 +360,10 @@ class GameBoard {
 }
 
 // ========= TIMER CLASS =========
+/**
+ * Simple 1-second tick timer. Calls onTick every second.
+ * The game manages which player's time decrements on each tick.
+ */
 class GameTimer {
   constructor() {
     this.intervalId = null;
@@ -379,6 +395,10 @@ class GameTimer {
 }
 
 // ========= GAME UI CLASS =========
+/**
+ * Handles DOM manipulation: rendering the board grid, updating timers/coins,
+ * animating coin falls, and showing overlays.
+ */
 class GameUI {
   constructor() {
     this.elements = {
@@ -445,6 +465,7 @@ class GameUI {
   }
 
   async animateFallingCoin(col, row, color) {
+    // Compute pixel offsets from CSS custom properties for accurate placement
     const cellSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cell'));
     const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
     const padding = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--boardPad'));
@@ -488,6 +509,10 @@ class GameUI {
 }
 
 // ========= MAIN GAME CLASS =========
+/**
+ * Orchestrates game flow: start/reset, handling clicks, alternating turns,
+ * timers, and bot integration. Human is Red; optional bot plays Yellow.
+ */
 class Connect4Game {
   constructor() {
     this.board = new GameBoard(6, 7);
@@ -532,7 +557,7 @@ class Connect4Game {
       this.startGame(300);
     });
 
-    // Board clicks
+    // Board clicks: ignored while animating or if it's the bot's turn
     this.ui.elements.board.addEventListener('click', (e) => {
       this.handleBoardClick(e);
     });
@@ -558,7 +583,7 @@ class Connect4Game {
     this.ui.updateBoard(this.board);
     this.ui.updatePlayerInfo(this.redPlayer, this.yellowPlayer);
 
-    // Start timer
+    // Start timer: tick every second; "timeUp" currently unused but available
     this.timer.start(
       () => this.handleTimerTick(),
       (player) => this.handleTimeUp(player)
@@ -585,6 +610,10 @@ class Connect4Game {
     }
   }
 
+  /**
+   * Execute a move for the current player in the given column.
+   * Handles animation, board update, win/draw checks, and turn switching.
+   */
   async playMove(col) {
     const row = this.board.getDropRow(col);
     if (row < 0) return; // Column is full
@@ -609,6 +638,10 @@ class Connect4Game {
     this.switchPlayer();
   }
 
+  /**
+   * Schedule the bot's move after a short delay; temporarily disables clicks
+   * to avoid accidental human input during the bot's turn.
+   */
   scheduleBotMove() {
     // Prevent user clicks during bot move window
     this.ui.elements.board.style.pointerEvents = 'none';
@@ -628,6 +661,7 @@ class Connect4Game {
   }
 
   getValidColumns() {
+    // Return all columns that are not full (top cell is empty)
     const cols = [];
     for (let c = 0; c < this.board.cols; c++) {
       if (this.board.isValidColumn(c)) cols.push(c);
@@ -636,6 +670,7 @@ class Connect4Game {
   }
 
   wouldWin(col, color) {
+    // Simulate a move in column "col" for "color" and check if it wins immediately
     const row = this.board.getDropRow(col);
     if (row < 0) return false;
     // simulate
@@ -659,6 +694,9 @@ class Connect4Game {
   }
 
   chooseBotColumn() {
+    // Bot move selection:
+    // Easy: random column
+    // Medium/Hard: greedy heuristics (win now, block opponent, center preference)
     const valid = this.getValidColumns();
     if (valid.length === 0) return null;
 

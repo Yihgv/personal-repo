@@ -1,10 +1,10 @@
 ---
 layout: base
-title: I'm [Your Full Name]
-hide: true
+title: We are Debuggers
+hide: false
 ---
 
-Hi! My name is [Your Full Name]
+Hi! we are the Debuggers
 
 ### Development Environment
 

@@ -6,6 +6,10 @@ hide: false
 
 Hi! we are the Debuggers
 
+## Three system
+<a href="/home/kasm-user/Desktop/opencs/CSP-team/CSP-team-1/three system guide.md" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Three systems</a>
+
+
 ### Development Environment
 
 > Coding starts with tools, explore these tools and procedures with a click.

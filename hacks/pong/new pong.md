@@ -51,6 +51,8 @@ comments: True
 </style>
 
 <script>
+
+  class Paddle {
 const canvas = document.getElementById('pongCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -58,14 +60,16 @@ const paddleWidth = 8, paddleHeight = 80;
 let player1Y = (canvas.height - paddleHeight) / 2;
 let player2Y = (canvas.height - paddleHeight) / 2;
 const paddleSpeed = 7;
+  }
 
+class Ball {
 let ballX, ballY, ballSpeedX, ballSpeedY, ballRadius = 10;
 let ballColor = "#fff";
 
 let player1Score = 0, player2Score = 0;
 const winningScore = 10;
 let gameOver = false;
-
+}
 const restartBtn = document.getElementById('restartBtn');
 
 // === Speed Boost Mode (with localStorage) ===
@@ -265,3 +269,14 @@ updateBoostStatus();
 initBall();
 gameLoop();
 </script>
+
+Short Reflection:
+
+What was the most challenging part of adding your feature?
+  Figuring out how to describe what we wanted to do in code.
+
+How did using commits help you track progress?
+  Using commits helped us keep track of which change was made when and what it included. They kept our work organized.
+
+What did you learn about debugging or OOP in this project?
+  We learned about how to organize our game characters, such as the ball, the paddle, and the score using classes. 

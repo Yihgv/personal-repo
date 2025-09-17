@@ -4,164 +4,66 @@ title: Mac 💻
 permalink: /tools/mac
 ---
 
-<style>
-/* Change whole page background and text style */
-body {
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #000000ff;
-}
+<!-- MacOS Setup Quiz Section -->
+<section class="quiz" style="margin-top: 50px; padding: 20px; background-color: #1a1a1a; border-radius: 15px;">
+  <h2 class="quiz-title">MacOS Setup Quiz</h2>
+  <form id="macQuizForm" class="quiz-form">
 
-/* Style for the clickable list */
-.toc {
-  background-color: #16e8ffff;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 30px;
-}
+    <!-- Question 1 -->
+    <p class="quiz-question">1. Which command is used to list files and directories in MacOS Terminal?</p>
+    <label><input type="radio" name="q1" value="ls"> ls</label><br>
+    <label><input type="radio" name="q1" value="pwd"> pwd</label><br>
+    <label><input type="radio" name="q1" value="cd"> cd</label><br><br>
 
-.toc h2 {
-  margin-top: 0;
-  color: #1e2aceff;
-}
+    <!-- Question 2 -->
+    <p class="quiz-question">2. Which command is used to clone a project repository from GitHub?</p>
+    <label><input type="radio" name="q2" value="git clone"> git clone</label><br>
+    <label><input type="radio" name="q2" value="git pull"> git pull</label><br>
+    <label><input type="radio" name="q2" value="git push"> git push</label><br><br>
 
-.toc ul {
-  list-style: none;
-  padding: 0;
-}
+    <!-- Question 3 -->
+    <p class="quiz-question">3. What is the correct command to update Homebrew packages?</p>
+    <label><input type="radio" name="q3" value="brew update"> brew update</label><br>
+    <label><input type="radio" name="q3" value="brew upgrade"> brew upgrade</label><br>
+    <label><input type="radio" name="q3" value="brew list"> brew list</label><br><br>
 
-.toc li {
-  margin: 8px 0;
-}
+    <!-- Question 4 -->
+    <p class="quiz-question">4. After opening a new Terminal session for the first time, what is the first directory you should create for OpenCS?</p>
+    <label><input type="radio" name="q4" value="opencs"> mkdir opencs</label><br>
+    <label><input type="radio" name="q4" value="student"> mkdir student</label><br>
+    <label><input type="radio" name="q4" value="project"> mkdir project</label><br><br>
 
-.toc a {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: 600;
-}
+    <!-- Question 5 -->
+    <p class="quiz-question">5. Which command activates the Python virtual environment in the OpenCS project?</p>
+    <label><input type="radio" name="q5" value="source venv/bin/activate"> source venv/bin/activate</label><br>
+    <label><input type="radio" name="q5" value="./scripts/activate.sh"> ./scripts/activate.sh</label><br>
+    <label><input type="radio" name="q5" value="git commit"> git commit</label><br><br>
 
-.toc a:hover {
-  text-decoration: underline;
-}
-</style>
+    <button type="button" class="quiz-button" onclick="checkMacQuiz()">Submit</button>
+  </form>
 
-# Mac Feature 💻✨
+  <div id="macQuizResult" class="quiz-result"></div>
+</section>
 
-<div class="toc">
-  <h2>Mac Feature 🚀</h2>
-  <ul>
-    <li><a href="#using-vs-code">Using VS Code 🖥️</a></li>
-    <li><a href="#common-tools">Common Tools 🛠️</a></li>
-    <li><a href="#terminal-tips">Terminal Tips 🖱️</a></li>
-    <li><a href="#shortcuts">Keyboard Shortcuts ⌨️</a></li>
-  </ul>
-</div>
+<script>
+  function checkMacQuiz() {
+    let score = 0;
+    const answers = {
+      q1: "ls",
+      q2: "git clone",
+      q3: "brew upgrade",
+      q4: "opencs",
+      q5: "source venv/bin/activate"
+    };
 
----
+    const form = document.getElementById("macQuizForm");
+    if (form.q1.value === answers.q1) score++;
+    if (form.q2.value === answers.q2) score++;
+    if (form.q3.value === answers.q3) score++;
+    if (form.q4.value === answers.q4) score++;
+    if (form.q5.value === answers.q5) score++;
 
-## Using VS Code 🖥️
-
-### 1. Install VS Code 📥
-- Download from [Visual Studio Code](https://code.visualstudio.com/).
-- Move the app to your **Applications** folder 🗂️.
-- Pin it to the Dock for easy access 📌.
-
-### 2. Enable `code` Command 🛠️
-Open VS Code → press `⇧⌘P` → search for **Shell Command: Install 'code' command in PATH**.  
-Now you can open a project with:
-```bash
-code .
-```
-
-### 3. Recommended Extensions 🔌
-
-* **Python 🐍** → run Python scripts.
-* **Jupyter 📓** → support for notebooks.
-* **Prettier 🎨** → auto format.
-* **GitLens 🔍** → Git visualization.
-
----
-
-## Common Tools 🛠️
-
-### 1. Install Homebrew 🍺
-
-Open Terminal and run:
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-After installation, verify:
-
-```bash
-brew --version
-```
-
-### 2. Install Git 🔧
-
-```bash
-brew install git
-git --version
-```
-
-### 3. Install Python 🐍
-
-Mac has a system Python, but for development:
-
-```bash
-brew install python
-python3 --version
-pip3 --version
-```
-
-### 4. Optional Tools ⚙️
-
-* **iTerm2 🖤** → better terminal.
-* **Oh My Zsh 🌟** → terminal customization.
-
----
-
-## Terminal Tips 🖱️
-
-### Basic Commands 💡
-
-```bash
-pwd     # print working directory 📂
-ls      # list files 📄
-cd dir  # change directory 🔀
-mkdir x # create folder 📁
-rm -rf  # remove file/folder ❌
-```
-
-### Git Commands 🌱
-
-```bash
-git clone <url>      # clone repository 📥
-git pull             # fetch changes 🔄
-git add .            # stage changes ➕
-git commit -m "msg"  # commit 📝
-git push             # upload changes ⬆️
-```
-
-### Brew Commands 🍺
-
-```bash
-brew list             # list installed packages 📦
-brew search <pkg>     # search for package 🔍
-brew update           # update brew ⬆️
-brew upgrade          # upgrade all ⚡
-brew uninstall <pkg>  # uninstall package ❌
-```
-
-### Setup Checks ✅
-
-```bash
-python3 --version 🐍
-pip3 --version 📦
-git --version 🔧
-brew --version 🍺
-```
-
-```
-
----
+    document.getElementById("macQuizResult").textContent = 
+      "You scored " + score + " out of 5. 💻";
+  }
+</script>

@@ -1,0 +1,20 @@
+# OOP Refactor Plan
+
+## Classes
+### Paddle
+- Feature: x, y, width, height, speed
+- By using draw(ctx), moveUp(), moveDown(), reset()
+
+### Ball
+- Feature: x, y, radius, speedX, speedY, color
+- B using draw(ctx), move(), reset(), wallBounce(), paddleBounce(paddle)
+
+### Game
+- Feature: canvas, ctx, paddles, ball, scores, gameOver, winningScore
+- By using update(), draw(), handleInput(keys), reset(), loop()
+
+- Each class handles its own state and behavior.
+- Game coordinates the objects but doesn’t handle their internals.
+
+- Use localStorage to store SpeedBoost toggle and multiplier.
+- Game loads/saves these settings.

@@ -36,8 +36,8 @@ Hi! we are the Debuggers
 > Here is my progress through coding, click to see these online
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{site.baseurl}}/snake" style="text-decoration: none;">
-        <div style="background-color: #00FF00; color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+    <a href="{{site.baseurl}}/snakegame" style="text-decoration: none;">
+        <div style="background-color: #ff8400ff; color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
             Snake Game
         </div>
     </a>

@@ -3,7 +3,7 @@ layout: post
 title: 🏓 Complete Pong Game Code Implementation
 description: Complete HTML, CSS, and JavaScript code for building a fully functional 2-player Pong game
 categories: ['Game Development', 'JavaScript', 'Canvas API', 'Code Implementation']
-permalink: /custompong
+permalink: /newcustompong
 menu: nav/tools_setup.html
 toc: True
 comments: True
@@ -51,6 +51,7 @@ comments: True
 </style>
 
 <script>
+
 const canvas = document.getElementById('pongCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -58,6 +59,8 @@ const paddleWidth = 8, paddleHeight = 80;
 let player1Y = (canvas.height - paddleHeight) / 2;
 let player2Y = (canvas.height - paddleHeight) / 2;
 const paddleSpeed = 7;
+  
+
 
 let ballX, ballY, ballSpeedX, ballSpeedY, ballRadius = 10;
 let ballColor = "#fff";
@@ -265,3 +268,14 @@ updateBoostStatus();
 initBall();
 gameLoop();
 </script>
+
+Short Reflection:
+
+What was the most challenging part of adding your feature?
+  Figuring out how to describe what we wanted to do in code.
+
+How did using commits help you track progress?
+  Using commits helped us keep track of which change was made when and what it included. They kept our work organized.
+
+What did you learn about debugging or OOP in this project?
+  We learned about how to organize our game characters, such as the ball, the paddle, and the score using classes. 

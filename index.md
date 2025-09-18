@@ -42,8 +42,13 @@ Hi! we are the Debuggers
         </div>
     </a>
     <a href="{{site.baseurl}}/connect4/play" style="text-decoration: none;">
-        <div style="background-color: #FF0000; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+        <div style="background-color: #ff0000ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
             Connect 4
+        </div>
+    </a>
+    <a href="{{site.baseurl}}/memory" style="text-decoration: none;">
+        <div style="background-color: #28a183ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+            Memory
         </div>
     </a>
 </div>

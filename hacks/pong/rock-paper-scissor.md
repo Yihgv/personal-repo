@@ -284,6 +284,33 @@ document.getElementById('rock-btn')?.addEventListener('dblclick',()=>playRPS('ro
 document.getElementById('paper-btn')?.addEventListener('dblclick',()=>playRPS('paper'));
 document.getElementById('scissors-btn')?.addEventListener('dblclick',()=>playRPS('scissors'));
 
+/* === Secret phrase cheat (console) === */
+window.rpsSecret = "rockets to the moon";   // <-- change to whatever you want
+
+// Call from console:  unlockRPS("rockets to the moon")  // -> true (armed)
+// Next round is auto-win. Returns true/false.
+window.unlockRPS = function(phrase, rounds=1){
+  const ok = (phrase || "").toLowerCase().trim() === String(window.rpsSecret).toLowerCase();
+  if (!ok) return false;
+
+  // make sure the flag exists
+  if (typeof window.cheatNextWin === "undefined") window.cheatNextWin = false;
+
+  // support multi-round arming
+  window.__rpsCheatRounds = Math.max(1, Math.floor(rounds));
+
+  // little visual + toast if available
+  try { toast("✨ Secret unlocked: next round auto-win!"); } catch {}
+  const panel = document.getElementById("rps-container");
+  if (panel) {
+    const old = panel.style.boxShadow;
+    panel.style.boxShadow = "0 0 28px 6px rgba(255,0,200,.75), inset 0 0 18px rgba(0,255,255,.45)";
+    setTimeout(()=> panel.style.boxShadow = old || "0 0 20px rgba(128,0,128,.5)", 1200);
+  }
+  return true;
+};
+
+
 // --- Konami cheat code: next round = guaranteed win + glow ---
 const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 let keybuf = [];

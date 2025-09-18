@@ -187,6 +187,97 @@ try {
   }
   render();
 
+// --- Scoreboard (persisted) ---
+const panel = document.getElementById('rps-container');
+const scoreBox = document.createElement('div');
+scoreBox.style.cssText = 'margin-top:10px;font-size:14px;color:#0ff';
+panel.appendChild(scoreBox);
+
+const state = {
+  wins: +(localStorage.getItem('rps_w')||0),
+  losses: +(localStorage.getItem('rps_l')||0),
+  ties: +(localStorage.getItem('rps_t')||0),
+  streak: +(localStorage.getItem('rps_s')||0),
+  best: +(localStorage.getItem('rps_b')||0),
+};
+function saveState(){
+  localStorage.setItem('rps_w',state.wins);
+  localStorage.setItem('rps_l',state.losses);
+  localStorage.setItem('rps_t',state.ties);
+  localStorage.setItem('rps_s',state.streak);
+  localStorage.setItem('rps_b',state.best);
+}
+function renderScore(){
+  scoreBox.innerHTML = `W:${state.wins}  L:${state.losses}  T:${state.ties}  | Streak:${state.streak}  Best:${state.best}`;
+}
+renderScore();
+
+// --- Toast helper ---
+function toast(msg, ms=1400){
+  const t=document.createElement('div');
+  t.textContent=msg;
+  t.style.cssText='position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#111;border:1px solid #444;color:#0ff;padding:8px 12px;border-radius:10px;font:13px ui-monospace,monospace;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.4)';
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), ms);
+}
+
+// --- SFX (tiny beeps) ---
+const AC = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AC();
+function beep(freq=440, time=0.08, type="square"){
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type=type; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination);
+  g.gain.value=0.12; g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+time);
+  o.start(); o.stop(audioCtx.currentTime+time);
+}
+function sfx(result){
+  if(result==="You Win!"){ beep(880,0.09,"sawtooth"); beep(1320,0.07,"sawtooth"); }
+  else if(result==="You Lose!"){ beep(220,0.12,"triangle"); }
+  else { beep(440,0.06,"sine"); }
+}
+
+// --- Confetti overlay over the battle canvas ---
+const confettiCanvas = document.createElement('canvas');
+confettiCanvas.width = battleCanvas.width;
+confettiCanvas.height = battleCanvas.height;
+confettiCanvas.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none';
+const mnt = document.getElementById('battleMount');
+mnt.style.position = 'relative';
+mnt.appendChild(confettiCanvas);
+const cctx = confettiCanvas.getContext('2d');
+
+function confettiBurst(x=battleCanvas.width/2, y=battleCanvas.height/2, n=70){
+  const parts = Array.from({length:n}, ()=>({
+    x,y,
+    vx:(Math.random()*2-1)*3.6,
+    vy:(Math.random()*-3-1.5),
+    s: Math.random()*3+2,
+    a: 1,
+    hue: Math.floor(Math.random()*360)
+  }));
+  const start = performance.now();
+  function step(t){
+    const dt = (t-start)/1000;
+    cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+    parts.forEach(p=>{
+      p.vy += 0.08; p.x += p.vx; p.y += p.vy; p.a -= 0.012;
+      cctx.fillStyle = `hsla(${p.hue} 90% 60% / ${Math.max(0,p.a)})`;
+      cctx.fillRect(p.x, p.y, p.s, p.s);
+    });
+    if(parts.some(p=>p.a>0 && p.y<confettiCanvas.height+10)) requestAnimationFrame(step);
+    else cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  }
+  requestAnimationFrame(step);
+}
+
+// --- CPU encourages you (on your loss) ---
+const ENCOURAGEMENT = [
+  "You got this!!! ",
+  "I'm sure you'll do better next time :D.",
+  "You'll win eventually!",
+  "aw mannn",
+  "I love your determination."
+];
 
 // --- Double-click icons to play (single-click still shows tips) ---
 document.getElementById('rock-btn')?.addEventListener('dblclick',()=>playRPS('rock'));
@@ -245,7 +336,7 @@ window.playRPS = function(playerChoice){
     <p>You chose: <b>${playerChoice.toUpperCase()}</b></p>
     <p>Computer chose: <b>${computerChoice.toUpperCase()}</b></p>
     <h3 style="color: cyan;">${resultText}</h3>
-    ${resultText==="You Lose!" ? `<div style="color:#ffa3a3;margin-top:6px">${TAUNTS[Math.floor(Math.random()*TAUNTS.length)]}</div>` : "" }
+    ${resultText==="You Lose!" ? `<div style="color:#ffa3a3;margin-top:6px">${ENCOURAGEMENT[Math.floor(Math.random()*ENCOURAGEMENT.length)]}</div>` : "" }
   `;
 
   if(winner && loser) startBattle(winner, loser);

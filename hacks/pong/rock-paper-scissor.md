@@ -5,7 +5,7 @@ description: Learn how to experiment with the console, elements, and see OOP in 
 permalink: /rock-paper-scissor/
 ---
 
-<!-- UI lives in HTML so it shows even if JS has an issue -->
+<!-- UI in HTML so it shows even if JS has an issue -->
 <div id="mainGameBox" style="max-width:700px;margin:32px auto 48px;position:relative;z-index:2;">
   <div id="rps-container" style="
     background: linear-gradient(135deg, black, purple);
@@ -31,7 +31,7 @@ permalink: /rock-paper-scissor/
       </button>
     </div>
 
-    <div style="margin-bottom:8px;font-size:.95em;color:#ffd700;">Click any icon to see a console challenge!</div>
+    <div style="margin-bottom:8px;font-size:.95em;color:#ffd700;">Shift+Click an icon to see a console challenge. (Click = play)</div>
 
     <!-- Canvas mount -->
     <div id="battleMount" style="display:block; margin:12px auto;"></div>
@@ -117,12 +117,13 @@ try {
   battleCanvas.style.boxShadow='0 2px 12px rgba(0,0,0,.18)';
   const mount=document.getElementById('battleMount');
   if(!mount) throw new Error('#battleMount missing');
+  mount.style.position = 'relative';
   mount.appendChild(battleCanvas);
   const ctx=battleCanvas.getContext('2d');
 
   // --- Assets ---
   const bgImage=new Image();
-  // If you have a real bg file, point here; otherwise use gradient:
+  // If you have a real bg file, point here; otherwise gradient fallback:
   // bgImage.src = "{{ '/images/platformer/backgrounds/alien_planet1.jpg' | relative_url }}";
   bgImage.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='180'><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%' stop-color='%230b1020'/><stop offset='100%' stop-color='%231a2a55'/></linearGradient><rect width='100%' height='100%' fill='url(%23g)'/></svg>";
 
@@ -187,174 +188,157 @@ try {
   }
   render();
 
-// --- Scoreboard (persisted) ---
-const panel = document.getElementById('rps-container');
-const scoreBox = document.createElement('div');
-scoreBox.style.cssText = 'margin-top:10px;font-size:14px;color:#0ff';
-panel.appendChild(scoreBox);
-
-const state = {
-  wins: +(localStorage.getItem('rps_w')||0),
-  losses: +(localStorage.getItem('rps_l')||0),
-  ties: +(localStorage.getItem('rps_t')||0),
-  streak: +(localStorage.getItem('rps_s')||0),
-  best: +(localStorage.getItem('rps_b')||0),
-};
-function saveState(){
-  localStorage.setItem('rps_w',state.wins);
-  localStorage.setItem('rps_l',state.losses);
-  localStorage.setItem('rps_t',state.ties);
-  localStorage.setItem('rps_s',state.streak);
-  localStorage.setItem('rps_b',state.best);
-}
-function renderScore(){
-  scoreBox.innerHTML = `W:${state.wins}  L:${state.losses}  T:${state.ties}  | Streak:${state.streak}  Best:${state.best}`;
-}
-renderScore();
-
-// --- Toast helper ---
-function toast(msg, ms=1400){
-  const t=document.createElement('div');
-  t.textContent=msg;
-  t.style.cssText='position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#111;border:1px solid #444;color:#0ff;padding:8px 12px;border-radius:10px;font:13px ui-monospace,monospace;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.4)';
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(), ms);
-}
-
-// --- SFX (tiny beeps) ---
-const AC = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AC();
-function beep(freq=440, time=0.08, type="square"){
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type=type; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination);
-  g.gain.value=0.12; g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+time);
-  o.start(); o.stop(audioCtx.currentTime+time);
-}
-function sfx(result){
-  if(result==="You Win!"){ beep(880,0.09,"sawtooth"); beep(1320,0.07,"sawtooth"); }
-  else if(result==="You Lose!"){ beep(220,0.12,"triangle"); }
-  else { beep(440,0.06,"sine"); }
-}
-
-// --- Confetti overlay over the battle canvas ---
-const confettiCanvas = document.createElement('canvas');
-confettiCanvas.width = battleCanvas.width;
-confettiCanvas.height = battleCanvas.height;
-confettiCanvas.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none';
-const mnt = document.getElementById('battleMount');
-mnt.style.position = 'relative';
-mnt.appendChild(confettiCanvas);
-const cctx = confettiCanvas.getContext('2d');
-
-function confettiBurst(x=battleCanvas.width/2, y=battleCanvas.height/2, n=70){
-  const parts = Array.from({length:n}, ()=>({
-    x,y,
-    vx:(Math.random()*2-1)*3.6,
-    vy:(Math.random()*-3-1.5),
-    s: Math.random()*3+2,
-    a: 1,
-    hue: Math.floor(Math.random()*360)
-  }));
-  const start = performance.now();
-  function step(t){
-    const dt = (t-start)/1000;
-    cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-    parts.forEach(p=>{
-      p.vy += 0.08; p.x += p.vx; p.y += p.vy; p.a -= 0.012;
-      cctx.fillStyle = `hsla(${p.hue} 90% 60% / ${Math.max(0,p.a)})`;
-      cctx.fillRect(p.x, p.y, p.s, p.s);
-    });
-    if(parts.some(p=>p.a>0 && p.y<confettiCanvas.height+10)) requestAnimationFrame(step);
-    else cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  /* ===== Mini SFX engine ===== */
+  const AC = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AC();
+  let sfxEnabled = true;
+  let sfxVolume  = 0.12;
+  function beep(freq=440, time=0.08, type="square"){
+    if(!sfxEnabled) return;
+    if(audioCtx.state === "suspended") audioCtx.resume().catch(()=>{});
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    o.connect(g); g.connect(audioCtx.destination);
+    const now = audioCtx.currentTime;
+    g.gain.setValueAtTime(sfxVolume, now);
+    g.gain.exponentialRampToValueAtTime(0.0008, now + time);
+    o.start(now); o.stop(now + time);
   }
-  requestAnimationFrame(step);
-}
+  function sfx(result){
+    if(result === "You Win!")      { beep(880,0.09,"sawtooth"); setTimeout(()=>beep(1320,0.07,"sawtooth"), 70); }
+    else if(result === "You Lose!"){ beep(220,0.12,"triangle"); }
+    else                           { beep(440,0.06,"sine"); }
+  }
+  window.setSFX = (on=true)=>{ sfxEnabled = !!on; return sfxEnabled; };
+  window.setSFXVolume = (v)=>{ sfxVolume = Math.max(0, Math.min(1, Number(v)||0)); return sfxVolume; };
 
-// --- CPU encourages you (on your loss) ---
-const ENCOURAGEMENT = [
-  "You got this!!! ",
-  "I'm sure you'll do better next time :D.",
-  "You'll win eventually!",
-  "aw mannn",
-  "I love your determination."
-];
+  /* ===== Scoreboard (localStorage) ===== */
+  const panel = document.getElementById('rps-container');
+  const scoreBox = document.createElement('div');
+  scoreBox.style.cssText = 'margin-top:10px;font-size:14px;color:#0ff';
+  panel.appendChild(scoreBox);
 
-// --- Double-click icons to play (single-click still shows tips) ---
-document.getElementById('rock-btn')?.addEventListener('dblclick',()=>playRPS('rock'));
-document.getElementById('paper-btn')?.addEventListener('dblclick',()=>playRPS('paper'));
-document.getElementById('scissors-btn')?.addEventListener('dblclick',()=>playRPS('scissors'));
+  const state = {
+    wins: +(localStorage.getItem('rps_w')||0),
+    losses: +(localStorage.getItem('rps_l')||0),
+    ties: +(localStorage.getItem('rps_t')||0),
+    streak: +(localStorage.getItem('rps_s')||0),
+    best: +(localStorage.getItem('rps_b')||0),
+  };
+  function saveState(){
+    localStorage.setItem('rps_w',state.wins);
+    localStorage.setItem('rps_l',state.losses);
+    localStorage.setItem('rps_t',state.ties);
+    localStorage.setItem('rps_s',state.streak);
+    localStorage.setItem('rps_b',state.best);
+  }
+  function renderScore(){
+    scoreBox.innerHTML = `W:${state.wins}  L:${state.losses}  T:${state.ties}  | Streak:${state.streak}  Best:${state.best}`;
+  }
+  renderScore();
 
-// --- Konami cheat code: next round = guaranteed win + glow ---
-const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-let keybuf = [];
-let cheatNextWin = false;
-window.addEventListener('keydown',(e)=>{
-  keybuf.push(e.key);
-  if(keybuf.length>KONAMI.length) keybuf.shift();
-  if(KONAMI.every((k,i)=> (keybuf[i]||'').toLowerCase()===k.toLowerCase())){
-    cheatNextWin = true;
-    toast('✨ Konami unlocked: next round auto-win!');
+  /* ===== Toast helper ===== */
+  function toast(msg, ms=1400){
+    const t=document.createElement('div');
+    t.textContent=msg;
+    t.style.cssText='position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#111;border:1px solid #444;color:#0ff;padding:8px 12px;border-radius:10px;font:13px ui-monospace,monospace;z-index:9999;box-shadow:0 6px 20px rgba(0,0,0,.4)';
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(), ms);
+  }
+
+  /* ===== Confetti overlay ===== */
+  const confettiCanvas = document.createElement('canvas');
+  confettiCanvas.width = battleCanvas.width;
+  confettiCanvas.height = battleCanvas.height;
+  confettiCanvas.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none';
+  mount.appendChild(confettiCanvas);
+  const cctx = confettiCanvas.getContext('2d');
+  function confettiBurst(x=battleCanvas.width/2, y=battleCanvas.height/2, n=70){
+    const parts = Array.from({length:n}, ()=>({
+      x,y, vx:(Math.random()*2-1)*3.6, vy:(Math.random()*-3-1.5),
+      s: Math.random()*3+2, a: 1, hue: Math.floor(Math.random()*360)
+    }));
+    const start = performance.now();
+    function step(t){
+      cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+      parts.forEach(p=>{
+        p.vy += 0.08; p.x += p.vx; p.y += p.vy; p.a -= 0.012;
+        cctx.fillStyle = `hsla(${p.hue} 90% 60% / ${Math.max(0,p.a)})`;
+        cctx.fillRect(p.x, p.y, p.s, p.s);
+      });
+      if(parts.some(p=>p.a>0 && p.y<confettiCanvas.height+10)) requestAnimationFrame(step);
+      else cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ===== CPU taunts (on loss) ===== */
+  const TAUNTS = [
+    "Skill issue? 😈",
+    "I read your mind… and it said 'paper'.",
+    "Consider… rock therapy.",
+    "GGs—try again?",
+    "I was born to snip paper."
+  ];
+
+  /* ===== Secret phrase cheat (console) ===== */
+  window.__rpsCheatRounds = window.__rpsCheatRounds || 0;
+  window.rpsSecret = "rockets to the moon";   // change to whatever you want
+  window.unlockRPS = function(phrase, rounds=1){
+    const ok = (phrase || "").toLowerCase().trim() === String(window.rpsSecret).toLowerCase();
+    if (!ok) return false;
+    window.__rpsCheatRounds = Math.max(1, Math.floor(rounds));
+    try { toast("✨ Secret unlocked: next round auto-win!"); } catch {}
     const old = panel.style.boxShadow;
     panel.style.boxShadow='0 0 28px 6px rgba(255,0,200,.75), inset 0 0 18px rgba(0,255,255,.45)';
-    setTimeout(()=> panel.style.boxShadow = old || '0 0 20px rgba(128,0,128,.5)', 1400);
+    setTimeout(()=> panel.style.boxShadow = old || '0 0 20px rgba(128,0,128,.5)', 1200);
+    return true;
+  };
+
+  /* ===== SHIFT-CLICK: play vs tip ===== */
+  function bindShiftTips() {
+    const cfg = { "rock-btn":"rock", "paper-btn":"paper", "scissors-btn":"scissors" };
+    Object.entries(cfg).forEach(([id, move]) => {
+      document.getElementById(id)?.addEventListener("click", (e) => {
+        if (e.shiftKey) {
+          const tip =
+            move === "rock" ? "🪨 Try in the console:\nrock.setBorder('4px solid lime');" :
+            move === "paper" ? "📄 Try in the console:\npaper.rotate(15);" :
+                               "✂️ Try in the console:\nscissors.setWidth(150);";
+          alert(tip);
+        } else {
+          playRPS(move);  // single-click plays
+        }
+      });
+    });
   }
-});
+  bindShiftTips();
 
-// ===== Replace your existing window.playRPS with this enhanced version =====
-window.playRPS = function(playerChoice){
-  const choices = ["rock","paper","scissors"];
-  if(!choices.includes(playerChoice)){
-    console.log("Invalid choice. Use 'rock', 'paper', or 'scissors'.");
-    return { ok:false, error:"invalid_choice", choices };
+  /* ===== Console-manipulable objects ===== */
+  class GameObject {
+    constructor(id) {
+      this.el = document.getElementById(id);
+      if (!this.el) throw new Error(`Element #${id} not found`);
+    }
+    rotate(deg) { this.el.style.transform = `rotate(${deg}deg)`; return this; }
+    setBorder(style) { this.el.style.border = style; return this; }
+    setWidth(px) { this.el.style.width = `${px}px`; return this; }
+    setColor(color) { this.el.style.backgroundColor = color; return this; }
+    reset() {
+      this.el.style.transform = "";
+      this.el.style.border = "";
+      this.el.style.width = "";
+      this.el.style.backgroundColor = "";
+      return this;
+    }
   }
-  highlightImage(playerChoice+"-img");
+  class Rock extends GameObject { constructor() { super("rock-img"); } }
+  class Paper extends GameObject { constructor() { super("paper-img"); } }
+  class Scissors extends GameObject { constructor() { super("scissors-img"); } }
+  window.rock = new Rock(); window.paper = new Paper(); window.scissors = new Scissors();
 
-  const counters = { rock:"scissors", paper:"rock", scissors:"paper" };
-  let computerChoice = choices[Math.floor(Math.random()*3)];
-  if(cheatNextWin){ computerChoice = counters[playerChoice]; cheatNextWin = false; }
-
-  let resultText, winner=null, loser=null;
-
-  if(playerChoice === computerChoice){
-    resultText = "Tie!"; startTie(playerChoice);
-    state.ties++; state.streak = 0;
-  } else if(
-    (playerChoice==="rock" && computerChoice==="scissors") ||
-    (playerChoice==="paper" && computerChoice==="rock") ||
-    (playerChoice==="scissors" && computerChoice==="paper")
-  ){
-    resultText = "You Win!"; winner = playerChoice; loser = computerChoice;
-    state.wins++; state.streak++; state.best = Math.max(state.best, state.streak);
-  } else {
-    resultText = "You Lose!"; winner = computerChoice; loser = playerChoice;
-    state.losses++; state.streak = 0;
-  }
-
-  saveState(); renderScore();
-
-  document.getElementById("resultBox").innerHTML = `
-    <p>You chose: <b>${playerChoice.toUpperCase()}</b></p>
-    <p>Computer chose: <b>${computerChoice.toUpperCase()}</b></p>
-    <h3 style="color: cyan;">${resultText}</h3>
-    ${resultText==="You Lose!" ? `<div style="color:#ffa3a3;margin-top:6px">${ENCOURAGEMENT[Math.floor(Math.random()*ENCOURAGEMENT.length)]}</div>` : "" }
-  `;
-
-  if(winner && loser) startBattle(winner, loser);
-
-  // flair
-  sfx(resultText);
-  if(resultText==="You Win!") {
-    confettiBurst();
-    if([3,5,10].includes(state.streak)) toast(`🔥 Streak ${state.streak}!`);
-  }
-
-  const result = { ok:true, player:playerChoice, computer:computerChoice, result:resultText, streak:state.streak, best:state.best };
-  window.lastRPS = result;
-  return result;
-};
-
-
-  // --- Game API (returns an object so console doesn't show "undefined") ---
+  // --- Game API (returns object so console doesn't show "undefined") ---
   window.playRPS=function(playerChoice){
     const choices=['rock','paper','scissors'];
     if(!choices.includes(playerChoice)){
@@ -362,39 +346,43 @@ window.playRPS = function(playerChoice){
       return { ok:false, error:"invalid_choice", choices };
     }
     highlightImage(playerChoice+'-img');
-    const computerChoice=choices[Math.floor(Math.random()*3)];
-    let resultText, winner=null, loser=null;
 
-    if(playerChoice===computerChoice){ resultText='Tie!'; startTie(playerChoice); }
+    const counters = { rock:"scissors", paper:"rock", scissors:"paper" };
+    let computerChoice = choices[Math.floor(Math.random()*3)];
+    if (window.__rpsCheatRounds > 0) {
+      computerChoice = counters[playerChoice];  // force a win
+      window.__rpsCheatRounds--;
+    }
+
+    let resultText, winner=null, loser=null;
+    if(playerChoice===computerChoice){ resultText='Tie!'; startTie(playerChoice); state.ties++; state.streak=0; }
     else if(
       (playerChoice==='rock'&&computerChoice==='scissors')||
       (playerChoice==='paper'&&computerChoice==='rock')||
       (playerChoice==='scissors'&&computerChoice==='paper')
-    ){ resultText='You Win!'; winner=playerChoice; loser=computerChoice; }
-    else { resultText='You Lose!'; winner=computerChoice; loser=playerChoice; }
+    ){ resultText='You Win!'; winner=playerChoice; loser=computerChoice; state.wins++; state.streak++; state.best=Math.max(state.best,state.streak); }
+    else { resultText='You Lose!'; winner=computerChoice; loser=playerChoice; state.losses++; state.streak=0; }
+
+    saveState(); renderScore();
 
     document.getElementById('resultBox').innerHTML =
       `<p>You chose: <b>${playerChoice.toUpperCase()}</b></p>
        <p>Computer chose: <b>${computerChoice.toUpperCase()}</b></p>
-       <h3 style="color: cyan;">${resultText}</h3>`;
+       <h3 style="color: cyan;">${resultText}</h3>
+       ${resultText==="You Lose!" ? `<div style="color:#ffa3a3;margin-top:6px">${TAUNTS[Math.floor(Math.random()*TAUNTS.length)]}</div>` : "" }`;
 
     if(winner&&loser) startBattle(winner,loser);
 
-    const result = { ok:true, player:playerChoice, computer:computerChoice, result:resultText };
-    window.lastRPS = result; // optional quick access
+    sfx(resultText);
+    if(resultText==="You Win!") {
+      confettiBurst();
+      if([3,5,10].includes(state.streak)) toast(`🔥 Streak ${state.streak}!`);
+    }
+
+    const result = { ok:true, player:playerChoice, computer:computerChoice, result:resultText, streak:state.streak, best:state.best };
+    window.lastRPS = result;
     return result;
   };
-
-  // --- Console-learning prompts on click (single-click) ---
-  document.getElementById('rock-btn')?.addEventListener('click', ()=> {
-    alert("🪨 Try in the console:\n\nrockImg && rockImg.complete ? 'already loaded' : 'loads on demand';\nrock.setBorder('4px solid lime');");
-  });
-  document.getElementById('paper-btn')?.addEventListener('click', ()=> {
-    alert("📄 Try in the console:\n\npaper.rotate(15);");
-  });
-  document.getElementById('scissors-btn')?.addEventListener('click', ()=> {
-    alert("✂️ Try in the console:\n\nscissors.setWidth(150);");
-  });
 
 } catch(e){ __err(e); }
 </script>

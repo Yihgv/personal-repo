@@ -1,25 +1,29 @@
-title: Open Coding 
-description: "Class of 2026"
+title: Hi! we are the Debuggers
+description: CSP 2025-2026
 owner_name: John Mortensen
 github_username: jm1021 
-github_repo: "student" 
+github_repo: "CSP-team" 
 url: "https://debuggers-csp.github.io"
 baseurl: "/CSP-team" 
 future: true
-remote_theme: jekyll/minima
+
+remote_theme: pages-themes/cayman@v0.2.0
+
 minima:
   skin: dark
   social_links:
     - { platform: github, user_url: "https://github.com/open-coding-society" }
     - { platform: x, user_url: "https://x.com/Open_Coding" }
     - { platform: youtube, user_url: "https://www.youtube.com/@OpenCodingSociety" } 
+
 plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
   - jekyll-seo-tag
   - jekyll-feed
+  
 header_pages:
   - navigation/blog.md
   - navigation/search.md
   - navigation/about.md
-  - navigation/logintoolkit.md
+  - navigation/logintoolkit.mdhgh

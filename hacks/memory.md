@@ -201,18 +201,17 @@ permalink: /javascript/project/memory
                 }, 800);
             }
         }
-        if (score === 8) {
             // Check if the player has achieved a new high score
             if (score > highScore) {
                 highScore = score;
                 localStorage.setItem('highScore', highScore); // Save new high score
                 highScoreDisplay.textContent = highScore; // Update display
             }
-
-            alert("Congratulations! You've matched all pairs!");
-            // refresh page
-            location.reload();
-        }
+            if (score == 8) {
+                alert("Congratulations! You've matched all pairs!");
+                // refresh page
+                location.reload();
+            }
     });
 
     // Draw all emojis at the start (for initial reveal)

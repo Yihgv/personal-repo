@@ -1,7 +1,7 @@
 ---
 layout: opencs
 title: Memory Game
-permalink: /javascript/project/memory
+permalink: /memory
 ---
 
 <style>

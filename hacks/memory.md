@@ -21,7 +21,7 @@ permalink: /javascript/project/memory
 <h2>Memory Game</h2>
 <p>Score: <span class="score"></span></p>
 <p>Attempts: <span class="attempts"></span></p>
-<p>High Score: <span class="high-score"></span></p> <!-- High score display -->
+<p>High Score: <span class="highest-score"></span></p> <!-- High score display -->
 <div class="container">
     <canvas class="memoryCanvas" id="memoryCanvas" width="600" height="400"></canvas>
 </div>

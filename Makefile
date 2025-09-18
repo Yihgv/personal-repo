@@ -11,7 +11,9 @@ SHELL = /bin/bash -c
 
 # List all .ipynb files in the _notebooks directory
 NOTEBOOK_FILES := $(shell find _notebooks -name '*.ipynb')
-CSP_NOTEBOOK_FILES := $(shell find _notebooks/CSP -name '*.ipynb')
+
+# Only search _notebooks/CSP if it exists (avoids error if missing)
+CSP_NOTEBOOK_FILES := $(shell [ -d _notebooks/CSP ] && find _notebooks/CSP -name '*.ipynb' || true)
 
 # Specify the target directory for the converted Markdown files
 DESTINATION_DIRECTORY = _posts
@@ -19,14 +21,8 @@ MARKDOWN_FILES := $(patsubst _notebooks/%.ipynb,$(DESTINATION_DIRECTORY)/%_IPYNB
 CSP_MARKDOWN_FILES := $(patsubst _notebooks/CSP/%.ipynb,$(DESTINATION_DIRECTORY)/%_IPYNB_2_.md,$(CSP_NOTEBOOK_FILES))
 
 # Call server, then verify and start logging
-# ...
-
-# Call server, then verify and start logging
 default: server
 	@echo "Terminal logging starting, watching server..."
-	@# tail and awk work together to extract Jekyll regeneration messages
-	@# When a _notebook is detected in the log, call make convert in the background
-	@# Note: We use the "if ($$0 ~ /_notebooks\/.*\.ipynb/) { system(\"make convert &\") }" to call make convert
 	@(tail -f $(LOG_FILE) | awk '/Server address: http:\/\/127.0.0.1:$(PORT)\/$(REPO_NAME)\// { serverReady=1 } \
 	serverReady && /^ *Regenerating:/ { regenerate=1 } \
 	regenerate { \
@@ -36,7 +32,6 @@ default: server
 			if ($$0 ~ /_notebooks\/.*\.ipynb/) { system("make convert &") } \
 		} \
 	}') 2>/dev/null &
-	@# start an infinite loop with timeout to check log status
 	@for ((COUNTER = 0; ; COUNTER++)); do \
 		if grep -q "Server address:" $(LOG_FILE); then \
 			echo "Server started in $$COUNTER seconds"; \
@@ -50,15 +45,11 @@ default: server
 		fi; \
 		sleep 1; \
 	done
-	@# outputs startup log, removes last line ($$d) as ctl-c message is not applicable for background process
 	@sed '$$d' $(LOG_FILE)
 
 csp: cspserver
 	@echo "ONLY COMPILED CSP CONTENT"
 	@echo "Terminal logging starting, watching server..."
-	@# tail and awk work together to extract Jekyll regeneration messages
-	@# When a _notebook is detected in the log, call make convert in the background
-	@# Note: We use the "if ($$0 ~ /_notebooks\/.*\.ipynb/) { system(\"make convert &\") }" to call make convert
 	@(tail -f $(LOG_FILE) | awk '/Server address: http:\/\/127.0.0.1:$(PORT)\/$(REPO_NAME)\// { serverReady=1 } \
 	serverReady && /^ *Regenerating:/ { regenerate=1 } \
 	regenerate { \
@@ -68,7 +59,6 @@ csp: cspserver
 			if ($$0 ~ /_notebooks\/CSP\/.*\.ipynb/) { system("make convert &") } \
 		} \
 	}') 2>/dev/null &
-	@# start an infinite loop with timeout to check log status
 	@for ((COUNTER = 0; ; COUNTER++)); do \
 		if grep -q "Server address:" $(LOG_FILE); then \
 			echo "Server started in $$COUNTER seconds"; \
@@ -82,9 +72,7 @@ csp: cspserver
 		fi; \
 		sleep 1; \
 	done
-	@# outputs startup log, removes last line ($$d) as ctl-c message is not applicable for background process
 	@sed '$$d' $(LOG_FILE)
-
 
 # Start the local web server
 server: stop convert
@@ -128,16 +116,12 @@ clean: stop
 	@echo "Removing _site directory..."
 	@rm -rf _site
 
-
 # Stop the server and kill processes
 stop:
 	@echo "Stopping server..."
-	@# kills process running on port $(PORT)
 	@@lsof -ti :$(PORT) | xargs kill >/dev/null 2>&1 || true
 	@echo "Stopping logging process..."
-	@# kills previously running logging processes
 	@@ps aux | awk -v log_file=$(LOG_FILE) '$$0 ~ "tail -f " log_file { print $$2 }' | xargs kill >/dev/null 2>&1 || true
-	@# removes log
 	@rm -f $(LOG_FILE)
 
 # stops the server and reloads it

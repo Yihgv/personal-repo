@@ -1,7 +1,7 @@
 ---
 layout: opencs
 title: Memory Game
-permalink: /Three sysytems
+permalink: /three-system-guide.md
 ---
 ## Three sysytems
 

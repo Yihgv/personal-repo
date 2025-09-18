@@ -1,0 +1,141 @@
+<!-- _layouts/opencs.html -->
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>
+    {% if page.title %}{{ page.title }} · {% endif %}
+    {{ site.title | default: "Site" }}
+  </title>
+
+  <!-- Favicon (optional) -->
+  {% if site.favicon %}
+    <link rel="icon" href="{{ site.favicon | relative_url }}">
+  {% endif %}
+
+  <!-- Main stylesheet if you have one (safe even if missing) -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+
+  <!-- Minimal built-in styles so the page looks fine even without theme CSS -->
+  <style>
+    :root {
+      --bg: #0f0f10; --panel: #1a1b1e; --fg: #e6e6e6; --muted:#9aa0a6; --accent:#ff4ec6;
+      --maxw: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+    a { color: #61dafb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: #111214; border-bottom: 1px solid #24262b;
+    }
+    .navwrap {
+      max-width: var(--maxw); margin: 0 auto; padding: 10px 16px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .brand {
+      display:flex; align-items:center; gap:10px;
+      padding:6px 10px; border-radius:10px; border:1px solid #2a2d33;
+      background:#16171a; font-weight: 700;
+    }
+    .brand .logo {
+      width:26px; height:26px; display:grid; place-items:center;
+      background:#2a2d33; border-radius:6px; font-family: ui-monospace,monospace;
+      color:#ff6; font-weight:800;
+    }
+    .navlinks { display:flex; gap:16px; margin-left:auto; }
+    .navlinks a { color:#cfd3d7; font-weight:600; }
+    .navlinks a.active { color:#fff; border-bottom:2px solid #fff; }
+
+    main#content {
+      max-width: var(--maxw); margin: 24px auto; padding: 0 16px 48px;
+    }
+    .panel {
+      background: var(--panel); border:1px solid #2a2d33; border-radius:14px; padding:18px;
+    }
+    .page-title { font-size: 1.6rem; margin: 12px 0 8px; }
+    .page-desc  { color: var(--muted); margin-bottom: 18px; }
+
+    footer.site-footer { color: var(--muted); border-top:1px solid #24262b; padding:18px 16px; }
+    footer .inner { max-width: var(--maxw); margin:0 auto; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+  </style>
+
+  <!-- Optional: MathJax only if page.math = true -->
+  {% if page.math %}
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  {% endif %}
+</head>
+<body>
+  <!-- Header / Nav (no external includes) -->
+  <header class="site-header">
+    <div class="navwrap">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="Home">
+        <span class="logo">CS</span>
+        <span>{{ site.title | default: "Course Site" }}</span>
+      </a>
+      <nav class="navlinks">
+        <a href="{{ '/blogs/'  | relative_url }}" class="{% if page.url contains '/blogs/' %}active{% endif %}">Blogs</a>
+        <a href="{{ '/search/' | relative_url }}" class="{% if page.url contains '/search/' %}active{% endif %}">Search</a>
+        <a href="{{ '/about/'  | relative_url }}" class="{% if page.url contains '/about/' %}active{% endif %}">About</a>
+        <a href="{{ '/login/'  | relative_url }}" class="{% if page.url contains '/login/' %}active{% endif %}">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Optional page header block -->
+  <section class="panel" style="max-width: var(--maxw); margin: 18px auto 0; padding: 16px;">
+    <div class="page-title">{{ page.title }}</div>
+    {% if page.description %}
+      <div class="page-desc">{{ page.description }}</div>
+    {% endif %}
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main id="content">
+    {% comment %}
+      Never hide the body in the layout. If you want to hide from index pages,
+      do it in templates that list posts, not here.
+    {% endcomment %}
+
+    <!-- Optional menu/submenu blocks.
+    
+         missing files crash the build. Instead, render simple nav from front-matter. -->
+    {% if page.menu_links %}
+      <nav class="panel" style="margin-top: 18px; display:flex; gap:12px; flex-wrap:wrap;">
+        {% for item in page.menu_links %}
+          <a class="chip" href="{{ item.url | relative_url }}" style="padding:8px 12px; border-radius:999px; border:1px solid #2a2d33;">
+            {{ item.title }}
+          </a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+
+    <!-- The actual page content -->
+    <article class="panel" style="margin-top:18px;">
+      {{ content }}
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="inner">
+      © {{ site.time | date: "%Y" }} {{ site.title | default: "Course Site" }} · Built with Jekyll
+    </div>
+  </footer>
+
+  <!-- Per-page JS: pass an array of script paths in front-matter as `scripts:` -->
+  {% if page.scripts %}
+    {% for s in page.scripts %}
+      <script src="{{ s | relative_url }}"></script>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>

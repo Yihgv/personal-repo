@@ -21,6 +21,7 @@ permalink: /javascript/project/memory
 <h2>Memory Game</h2>
 <p>Score: <span class="score"></span></p>
 <p>Attempts: <span class="attempts"></span></p>
+<p>High Score: <span class="high-score"></span></p> <!-- High score display -->
 <div class="container">
     <canvas class="memoryCanvas" id="memoryCanvas" width="600" height="400"></canvas>
 </div>
@@ -36,10 +37,18 @@ permalink: /javascript/project/memory
     let matchedCells = []; // Stores matched cells [{col, row}]
     const scoreDisplay = document.querySelector('.score');
     const attemptsDisplay = document.querySelector('.attempts');
+    const highScoreDisplay = document.querySelector('.high-score'); // High score display element
     let score = 0; // Player's score
     let attempts = 0; // Number of attempts made
     scoreDisplay.textContent = score;
     attemptsDisplay.textContent = attempts;
+
+    // Retrieve the high score from localStorage
+    let highScore = localStorage.getItem('highScore');
+    if (highScore === null) {
+        highScore = 0; // Set to 0 if no high score exists
+    }
+    highScoreDisplay.textContent = highScore; // Display high score
 
     // Draws the grid lines on the canvas
     function drawGrid(cols, rows) {
@@ -192,7 +201,14 @@ permalink: /javascript/project/memory
                 }, 800);
             }
         }
-        if(score == 8) {
+        if (score === 8) {
+            // Check if the player has achieved a new high score
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore); // Save new high score
+                highScoreDisplay.textContent = highScore; // Update display
+            }
+
             alert("Congratulations! You've matched all pairs!");
             // refresh page
             location.reload();

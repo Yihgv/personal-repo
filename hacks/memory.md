@@ -40,6 +40,9 @@ permalink: /memory
     const highScoreDisplay = document.querySelector('.high-score'); // High score display element
     let score = 0; // Player's score
     let attempts = 0; // Number of attempts made
+    let bestAttempts = localStorage.getItem('bestAttempts') 
+    ? parseInt(localStorage.getItem('bestAttempts')) 
+    : null;
     scoreDisplay.textContent = score;
     attemptsDisplay.textContent = attempts;
 
@@ -201,19 +204,30 @@ permalink: /memory
                 }, 800);
             }
         }
-            // Check if the player has achieved a new high score
-            if (score > highScore) {
-                highScore = score;
-                localStorage.setItem('highScore', highScore); // Save new high score
-                highScoreDisplay.textContent = highScore; // Update display
-            }
-            if (score == 8) {
-                alert("Congratulations! You've matched all pairs!");
-                // refresh page
-                location.reload();
-            }
+        if(score == 8) {
+            alert("Congratulations! You've matched all pairs!");
+            // refresh page
+            location.reload();
+        }
     });
 
     // Draw all emojis at the start (for initial reveal)
     drawEmojis(4, 4, emojiList);
+    function endGame() {
+   
+    if (!bestAttempts || attempts < bestAttempts) {
+        bestAttempts = attempts;
+        localStorage.setItem('bestAttempts', bestAttempts);
+    }
+
+    
+    alert(
+        "🎉 Congratulations! You've matched all pairs!\n\n" +
+        "Your Attempts: " + attempts + "\n" +
+        "Best Attempts: " + bestAttempts
+    );
+
+    location.reload();
+}
+
 </script>

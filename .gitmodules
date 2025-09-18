@@ -1,0 +1,3 @@
+[submodule "CSP-team"]
+  path = CSP-team
+  url = https://github.com/Debuggers-CSP/CSP-team.git  # Replace with the correct URL

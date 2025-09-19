@@ -66,6 +66,48 @@ permalink: /hacks/rock-paper-scissor/
   container.setAttribute("style", instructionsStyle);
   container.innerHTML = instructionsHTML;
   document.getElementById("mainGameBox").appendChild(container);
+  // --- Define game function and add clickable buttons ---
+window.playRPS = function(playerChoice) {
+    const choices = ["rock", "paper", "scissors"];
+    if (!choices.includes(playerChoice)) {
+        console.log("Invalid choice. Use 'rock', 'paper', or 'scissors'.");
+        return;
+    }
+
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+    let resultText;
+
+    if (playerChoice === computerChoice) {
+        resultText = "Tie!";
+    } else if (
+        (playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper")
+    ) {
+        resultText = "You Win!";
+    } else {
+        resultText = "You Lose!";
+    }
+
+    document.getElementById("resultBox").innerHTML = `
+        <p>You chose: <b>${playerChoice.toUpperCase()}</b></p>
+        <p>Computer chose: <b>${computerChoice.toUpperCase()}</b></p>
+        <h3 style="color: cyan;">${resultText}</h3>
+    `;
+};
+
+// --- Create buttons on-page ---
+const rpsButtons = document.createElement("div");
+rpsButtons.id = "rps-buttons";
+rpsButtons.style = "text-align: center; margin-top: 20px;";
+
+rpsButtons.innerHTML = `
+  <button onclick="playRPS('rock')" style="padding:10px 20px; font-weight:bold; margin:5px;">🪨 Rock</button>
+  <button onclick="playRPS('paper')" style="padding:10px 20px; font-weight:bold; margin:5px;">📄 Paper</button>
+  <button onclick="playRPS('scissors')" style="padding:10px 20px; font-weight:bold; margin:5px;">✂️ Scissors</button>
+`;
+
+document.getElementById("mainGameBox").appendChild(rpsButtons);
 
   // --- helper: highlight chosen image ---
   function highlightImage(id){

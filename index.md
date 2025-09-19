@@ -1,13 +1,16 @@
 ---
 layout: base
 title: We are Debuggers
-hide: false
+hide: true
 ---
 
 Hi! we are the Debuggers
 
 ## Three system
 <a href="{{site.baseurl}}/three-system-guide.md" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Three systems</a>
+
+## Setupwizard frontpage
+<a href="{{site.baseurl}}/toosl/frontpage" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Setupwizard frontpage</a>
 
 
 ### Development Environment
@@ -49,11 +52,6 @@ Hi! we are the Debuggers
     <a href="{{site.baseurl}}/memory" style="text-decoration: none;">
         <div style="background-color: #28a183ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
             Memory
-        </div>
-    </a>
-     <a href="{{site.baseurl}}/hacks/rock-paper-scissor/" style="text-decoration: none;">
-        <div style="background-color: purple; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
-            🎮 Rock Paper Scissors
         </div>
     </a>
 </div>

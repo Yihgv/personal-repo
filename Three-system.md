@@ -1,7 +1,7 @@
 ---
 layout: base
 title: Three system
-permalink: /Three-system.md
+permalink: /Three-system
 ---
 ## Three systems
 

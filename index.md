@@ -15,7 +15,7 @@ Hi! we are the Debuggers
 
 
 ## Setupwizard frontpage
-<a href="{{site.baseurl}}/toosl/frontpage" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Setupwizard frontpage</a>
+<a href="{{site.baseurl}}/tools/frontpage" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Setupwizard frontpage</a>
 
 
 ### Development Environment

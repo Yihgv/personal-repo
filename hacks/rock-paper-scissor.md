@@ -1,7 +1,6 @@
 ---
 title: Rock paper Scissors
 comments: true
-hide: true
 layout: opencs
 description: Learn how to experiment with the console, elements, and see OOP in action while playing Rock paper Scissors!
 permalink: /rock-paper-scissor/

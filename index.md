@@ -7,6 +7,7 @@ hide: true
 Hi! we are the Debuggers
 
 ## Three system
+
 <a href="/three-system" style="text-decoration: none;">
     <div style="background-color: #0084ff; color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
         Three Systems

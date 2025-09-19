@@ -7,13 +7,11 @@ hide: true
 Hi! we are the Debuggers
 
 ## Three system
-
-<a href="{{site.baseurl}}//home/kasm-user/Desktop/opencs/CSP-team/CSP-team-5/Three-system.md" style="display: inline-block; padding: 10px 20px; background-color: #28a183; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">There systems</a>
-
-
-
-## Setupwizard frontpage
-<a href="{{site.baseurl}}/tools/frontpage" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Setupwizard frontpage</a>
+<a href="home/kasm-user/Desktop/opencs/CSP-team/CSP-team-4/Three-system" style="text-decoration: none;">
+        <div style="background-color: #0084ffff; color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+            Three Systems
+        </div>
+    </a>
 
 
 ### Development Environment

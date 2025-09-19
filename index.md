@@ -7,7 +7,7 @@ hide: true
 Hi! we are the Debuggers
 
 ## Three system
-<a href="/Three-system.md" 
+<a href="/home/kasm-user/Desktop/opencs/CSP-team/CSP-team-4/CSP-team/Three-system.md" 
    style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">
    Three systems
 </a>

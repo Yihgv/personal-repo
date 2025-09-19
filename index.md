@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: default
 title: We are Debuggers
 hide: false
 ---

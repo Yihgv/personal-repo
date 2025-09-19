@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: 🏓 Complete Pong Game Code Implementation
 description: Complete HTML, CSS, and JavaScript code for building a fully functional 2-player Pong game
 categories: ['Game Development', 'JavaScript', 'Canvas API', 'Code Implementation']
@@ -18,13 +18,13 @@ comments: True
 
   <!-- SpeedBoostMode controls -->
   <div id="controls" style="margin-top:12px;">
-    <label style="color:#fff; user-select:none;">
+    <label style="color:#000; user-select:none;">
       <input type="checkbox" id="boostToggle"> Speed Boost Mode
     </label>
-    <span id="boostStatus" style="color:#fff; margin-left:12px;">x1.00</span>
+    <span id="boostStatus" style="color:#000; margin-left:12px;">x1.00</span>
 
     <!-- Gravity Mode toggle -->
-    <label style="color:#fff; user-select:none; margin-left:20px;">
+    <label style="color:#000; user-select:none; margin-left:20px;">
       <input type="checkbox" id="gravityToggle"> Gravity Mode
     </label>
   </div>
@@ -41,7 +41,7 @@ comments: True
     border: none;
     border-radius: 6px;
     background: #4caf50;
-    color: white;
+    color: black;
     cursor: pointer;
   }
   #restartBtn:hover { background: #45a049; }

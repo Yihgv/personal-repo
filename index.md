@@ -54,6 +54,11 @@ Hi! we are the Debuggers
             Memory
         </div>
     </a>
+    <a href="{{site.baseurl}}/hacks/rock-paper-scissor" style="text-decoration: none;">
+    <div style="background-color: #4a20c9ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+        Rock Paper Scissors
+    </div>
+</a>
 </div>
 
 <br>

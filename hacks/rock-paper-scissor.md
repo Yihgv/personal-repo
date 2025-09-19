@@ -40,22 +40,22 @@ permalink: /hacks/rock-paper-scissor/
     <div id="images" style="display:flex; justify-content:center; gap:20px; margin-bottom:14px;">
 
   <button id="rock-btn" style="background:none; border:none; padding:0; cursor:pointer; display:flex; flex-direction:column; align-items:center;">
-    <img id="rock-img" src="{{site.baseurl}}/images/rps/rock.jpg"
-         style="width:100px; border:2px solid white; border-radius:10px;">
-    <span style="margin-top:6px; font-weight:bold; color:white;">Rock 🪨</span>
-  </button>
+  <img id="rock-img" src="{{site.baseurl}}/images/rps/rock.jpg"
+       style="width:100px; border:2px solid white; border-radius:10px;">
+  <span style="margin-top:6px; font-weight:bold; color:white;">Rock 🪨</span>
+</button>
 
-  <button id="paper-btn" style="background:none; border:none; padding:0; cursor:pointer; display:flex; flex-direction:column; align-items:center;">
-    <img id="paper-img" src="{{site.baseurl}}/images/rps/paper.jpeg"
-         style="width:100px; border:2px solid white; border-radius:10px;">
-    <span style="margin-top:6px; font-weight:bold; color:white;">Paper 📄</span>
-  </button>
+<button id="paper-btn" style="background:none; border:none; padding:0; cursor:pointer; display:flex; flex-direction:column; align-items:center;">
+  <img id="paper-img" src="{{site.baseurl}}/images/rps/paper.jpeg"
+       style="width:100px; border:2px solid white; border-radius:10px;">
+  <span style="margin-top:6px; font-weight:bold; color:white;">Paper 📄</span>
+</button>
 
-  <button id="scissors-btn" style="background:none; border:none; padding:0; cursor:pointer; display:flex; flex-direction:column; align-items:center;">
-    <img id="scissors-img" src="{{site.baseurl}}/images/rps/scissors.jpeg"
-         style="width:100px; border:2px solid white; border-radius:10px;">
-    <span style="margin-top:6px; font-weight:bold; color:white;">Scissors ✂️</span>
-  </button>
+<button id="scissors-btn" style="background:none; border:none; padding:0; cursor:pointer; display:flex; flex-direction:column; align-items:center;">
+  <img id="scissors-img" src="{{site.baseurl}}/images/rps/scissors.jpeg"
+       style="width:100px; border:2px solid white; border-radius:10px;">
+  <span style="margin-top:6px; font-weight:bold; color:white;">Scissors ✂️</span>
+</button>
 
 </div>
     <div style="margin-bottom:18px; font-size:1.1em; color:#ffd700;">

@@ -1,0 +1,56 @@
+---
+layout: post
+title:  "What we learned from the rock-paper-scissors game"
+permalink: /rps-learning/
+
+---
+
+## 🔑 Key Lessons from the RPS Console Project
+
+Working with Rock Paper Scissors inside the browser console taught us more than just how to play a game.  
+It showed us **how developers think, debug, and organize code**. Here’s what we took away:
+
+---
+
+### 1. Comfort with Developer Tools
+We learned how to **open and navigate** the browser’s developer tools — especially the Console tab.  
+Typing commands directly into the console helped us understand how JavaScript runs behind the scenes.
+
+---
+
+### 2. Functions and Parameters
+The game required calling `playRPS("rock")`, `playRPS("paper")`, or `playRPS("scissors")`.  
+This taught us how **functions** work and how different **arguments** change the outcome of a program.
+
+---
+
+### 3. Debugging and Live Coding
+By experimenting in the console, we saw:
+- How to test commands quickly  
+- How error messages guide debugging  
+- How live coding helps us learn faster than editing and refreshing files  
+
+---
+
+### 4. Introduction to OOP
+We also explored **Object-Oriented Programming (OOP)**.  
+Each game button (Rock, Paper, Scissors) could be treated as an **object** with properties (size, color) and methods (animate, rotate).  
+This showed us how OOP makes code **modular and reusable**.
+
+---
+
+### 5. Creativity with the Console
+The project encouraged us to customize the game — changing button colors, sizes, and styles directly in the console.  
+This made coding feel **interactive and playful**, while still reinforcing real programming skills.
+
+---
+
+## 📝 Reflection
+Overall, this project taught us:
+- How to navigate developer tools with confidence  
+- How functions, parameters, and objects connect in JavaScript  
+- That debugging is a normal, even fun, part of coding  
+- That OOP gives structure and power to interactive programs  
+
+The biggest takeaway: **the console is not just for errors — it’s a learning playground** where we can test ideas, practice code, and see results instantly.
+

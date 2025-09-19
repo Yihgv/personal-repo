@@ -30,7 +30,7 @@ permalink: /rock-paper-scissor/
     overflow-y: auto;      /* added */
     font-family: 'Press Start 2P', cursive;
     border: 3px solid purple;
-    box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
+    box-shadow: 0 0 20px rgba(0, 21, 128, 0.5);
     text-align: center;
     `;
 
@@ -61,6 +61,7 @@ permalink: /rock-paper-scissor/
     <div id="battleMount" style="display:block; margin:12px auto;"></div>
 
     <div id="resultBox" style="margin-top: 16px; font-size: 16px; color: yellow;"></div>
+    
   `;
   const container = document.createElement("div");
   container.setAttribute("style", instructionsStyle);

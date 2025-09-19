@@ -1,13 +1,16 @@
 ---
 layout: base
 title: We are Debuggers
-hide: false
+hide: true
 ---
 
 Hi! we are the Debuggers
 
 ## Three system
 <a href="[/three-system-guide.md](<home/kasm-user/Desktop/opencs/CSP-team/CSP-team-1/home page/three system guide.md>)" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Three systems</a>
+
+## Setupwizard frontpage
+<a href="{{site.baseurl}}/toosl/frontpage" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">Setupwizard frontpage</a>
 
 
 ### Development Environment
@@ -51,6 +54,11 @@ Hi! we are the Debuggers
             Memory
         </div>
     </a>
+    <a href="{{site.baseurl}}/hacks/rock-paper-scissor" style="text-decoration: none;">
+    <div style="background-color: #4a20c9ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+        Rock Paper Scissors
+    </div>
+</a>
 </div>
 
 <br>

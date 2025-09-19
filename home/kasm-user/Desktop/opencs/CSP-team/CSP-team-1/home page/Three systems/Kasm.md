@@ -1,6 +1,6 @@
 ---
 layout: base
-title: Kasm Setup
+title: Setup Quest — Kasm & CSP Tools
 permalink: /tools/kasm-setup
 ---
 
@@ -8,81 +8,106 @@ permalink: /tools/kasm-setup
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Multiple Choice Quiz — Set up</title>
+  <title>Setup Quest — Tech Adventure</title>
   <style>
     :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7dd3fc;
-      --correct:#16a34a; --wrong:#ef4444; --radius:12px;
+      --bg:#0a0f1b; --card:#0b1220; --muted:#9aa4b2; --accent:#86e1ff;
+      --accent2:#a7f3d0; --correct:#22c55e; --wrong:#f43f5e; --radius:14px;
+      --ink:#e6eef6;
       color-scheme: dark;
     }
     *{box-sizing:border-box}
     body{
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      margin:0; padding:32px; background:linear-gradient(180deg,#071024 0%, #081223 100%);
-      color:#e6eef6; -webkit-font-smoothing:antialiased;
+      font-family: Inter, ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0; padding:28px; color:var(--ink); -webkit-font-smoothing:antialiased;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(134,225,255,0.08), transparent 60%),
+        radial-gradient(900px 400px at 90% 10%, rgba(167,243,208,0.07), transparent 60%),
+        linear-gradient(180deg, #081226 0%, #070f20 100%);
     }
-    .wrap{max-width:880px;margin:0 auto;}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    header h1{font-size:20px;margin:0}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--radius); padding:18px; box-shadow:0 6px 18px rgba(2,6,23,0.6);
-      margin-bottom:14px;
-    }
-    .question-number{font-weight:600;color:var(--muted);font-size:13px}
-    .question-text{font-size:18px;margin:8px 0 14px}
+    .wrap{max-width:980px;margin:0 auto;}
+    header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    header h1{font-size:22px;margin:0}
+    .subtitle{color:var(--muted);font-size:13px;margin-top:2px}
+    .hud{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+    .tag{background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);
+      padding:6px 10px; border-radius:999px; font-size:12px; color:var(--muted)}
+    .xpbar{flex:1; min-width:220px; height:10px; border-radius:999px; background:rgba(255,255,255,0.06); position:relative}
+    .xpbar > span{position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:999px}
+    .hud-right{margin-left:auto; display:flex; gap:10px; align-items:center}
+    .btn{background:var(--accent); color:#022; border:none; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.08)}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px dashed rgba(255,255,255,0.12)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:18px; box-shadow:0 10px 28px rgba(2,6,23,0.55); margin-bottom:16px}
+    .map{display:flex; gap:10px; align-items:center; overflow-x:auto; padding:10px 4px; margin-bottom:10px}
+    .node{--size:28px;width:var(--size); height:var(--size); border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10);
+      display:grid; place-items:center; font-size:12px; color:var(--muted); flex:0 0 auto}
+    .node.active{background:linear-gradient(180deg, rgba(134,225,255,0.25), rgba(167,243,208,0.2)); color:#031b22; border-color:rgba(134,225,255,0.7)}
+    .node.done{background:linear-gradient(180deg, rgba(34,197,94,0.35), rgba(16,185,129,0.25)); color:#052014; border-color:rgba(16,185,129,0.7)}
+    .link{height:2px; width:36px; background:linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.18)); flex:0 0 auto}
+    .question-number{font-weight:700;color:var(--muted);font-size:13px}
+    .question-text{font-size:18px;margin:10px 0 14px}
     .choices{display:flex;flex-direction:column;gap:8px}
-    .choice label{
-      display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;
-      background:rgba(255,255,255,0.01);cursor:pointer;border:1px solid rgba(255,255,255,0.03)
-    }
+    .choice label{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;
+      background:rgba(255,255,255,0.02);cursor:pointer;border:1px solid rgba(255,255,255,0.08)}
     .choice input{width:18px;height:18px}
-    .actions{display:flex;gap:8px;align-items:center;margin-top:14px}
-    button{background:var(--accent);border:none;color:#022;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
-    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .feedback{margin-top:8px;padding:10px;border-radius:8px;font-size:14px}
-    .feedback.correct{background:rgba(22,163,74,0.12);border:1px solid rgba(22,163,74,0.18);color:var(--correct)}
-    .feedback.wrong{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.14);color:var(--wrong)}
-    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    .cover-title{font-size:18px; font-weight:700; margin-bottom:8px}
+    .actions{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
+    .feedback{margin-top:10px;padding:10px;border-radius:10px;font-size:14px;border:1px solid transparent}
+    .feedback.correct{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.28);color:var(--correct)}
+    .feedback.wrong{background:rgba(244,63,94,0.10);border-color:rgba(244,63,94,0.22);color:var(--wrong)}
+    .cover-title{font-size:18px; font-weight:800; margin-bottom:8px}
     .cover-sub{color:var(--muted); font-size:14px}
-    @media (max-width:640px){
-      body{padding:18px}
-      .question-text{font-size:16px}
-    }
+    .lore{margin-top:10px; font-size:13px; color:var(--muted); background:rgba(255,255,255,0.03);
+      border:1px dashed rgba(255,255,255,0.12); border-radius:10px; padding:10px}
+    .loot{display:flex; gap:10px; align-items:center; background:linear-gradient(180deg, rgba(134,225,255,0.06), rgba(167,243,208,0.06));
+      border:1px solid rgba(134,225,255,0.25); padding:10px; border-radius:12px; margin-top:10px; font-size:13px; color:#d8fff4}
+    .mascot{display:flex; gap:10px; align-items:center}
+    .bubble{padding:10px 12px; border-radius:12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); font-size:13px; color:var(--muted)}
+    .confetti{position:fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; overflow:hidden}
+    .confetti span{position:absolute; top:-10px; font-size:16px; opacity:0.9; animation:fall 1400ms linear forwards}
+    @keyframes fall{to{ transform:translateY(110vh) rotate(540deg); opacity:1 }}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36'><rect rx='9' width='36' height='36' fill='%237dd3fc'/><text x='50%' y='57%' font-size='18' font-family='Arial' fill='%23041a1f' text-anchor='middle'>Q</text></svg>" alt="" width="36" height="36">
-      <div>
-        <h1>Multiple-choice Quiz Set Up</h1>
-        <div class="meta">Each question unlocks the next only if you answer correctly.</div>
+      <h1>Setup Quest</h1>
+      <div class="subtitle">Prepare your CSP toolkit. Clear each check to advance the adventure.</div>
+      <div class="hud">
+        <span class="tag" id="rankTag">Rank: Novice Adventurer</span>
+        <div class="xpbar"><span id="xpFill"></span></div>
+        <div class="hud-right">
+          <button id="resetBtn" class="btn secondary">Reset Quest</button>
+          <button id="showAnswersBtn" class="btn ghost">Glimpse: Show correct choice (current)</button>
+        </div>
       </div>
     </header>
+
+    <div class="card">
+      <div class="map" id="map"></div>
+      <div class="mascot"><div class="bubble" id="mascotBubble">Welcome, adventurer! Click <strong>Continue</strong> when you’re ready to face the first trial.</div></div>
+    </div>
 
     <main id="stage"></main>
 
     <div class="card">
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-        <button id="resetBtn" class="secondary">Reset</button>
-        <button id="showAnswersBtn" class="secondary">Show correct choice (current)</button>
-        <div style="margin-left:auto;color:var(--muted)" id="progressDisplay">Progress: 0 / 10</div>
+        <button id="continueBtn" class="btn" style="display:none">Continue</button>
+        <span class="tag" id="progressDisplay">Progress: 0 / 10</span>
+        <span class="tag" id="xpDisplay">XP: 0</span>
+        <span class="tag" id="streakDisplay">Streak: 0</span>
+        <div style="margin-left:auto;color:var(--muted)" id="globalFeedback"></div>
       </div>
-      <div id="globalFeedback" style="margin-top:12px"></div>
     </div>
-
-    <footer>
-      Tip: questions use 0-based answer keys. Answer correctly to continue. Use Reset to start over.
-    </footer>
   </div>
 
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
   <script>
-    /* ---------------------------------------------------------
-     * Original 5 questions (kept as Q1–Q4 & Q7 after inserts)
-     * --------------------------------------------------------- */
+    /* -------------------------
+     * FULL QUESTIONS (10 total)
+     * ------------------------- */
     const originalQuestions = [
       {
         text: "What repo did you fork?",
@@ -141,14 +166,7 @@ permalink: /tools/kasm-setup
       }
     ];
 
-    /* ---------------------------------------------------------
-     * New 5 questions (ordering per your instruction)
-     * - Place #1 (Access cloud) BEFORE #2 (Clone)
-     * - Insert both BEFORE the old Q5 (first commit)
-     * - Put the other three AFTER the old Q5
-     * --------------------------------------------------------- */
     const newQuestionsOrdered = [
-      // New Q5a (goes before clone & before old first-commit)
       {
         text: "How can you access the Ubuntu cloud computer?",
         choices: [
@@ -160,7 +178,6 @@ permalink: /tools/kasm-setup
         correct: 0,
         explanation: "Open the browser and go to <code>kasm.opencodingsociety.com</code> to launch the Ubuntu cloud computer."
       },
-      // New Q5b
       {
         text: "How do you clone a GitHub directory?",
         choices: [
@@ -172,7 +189,6 @@ permalink: /tools/kasm-setup
         correct: 3,
         explanation: "Use <code>git clone &lt;repo-url&gt;</code> to copy a remote repository locally."
       },
-      // New after old first-commit: Console
       {
         text: "How can you open up the console on your VS Code?",
         choices: [
@@ -184,7 +200,6 @@ permalink: /tools/kasm-setup
         correct: 2,
         explanation: "In VS Code: <em>Help → Toggle Developer Tools</em> opens the devtools console."
       },
-      // New after old first-commit: Jupyter jokes
       {
         text: "How can you make a Jupyter notebook with all the jokes inside?",
         choices: [
@@ -196,7 +211,6 @@ permalink: /tools/kasm-setup
         correct: 2,
         explanation: "Use <em>File → New File → Jupyter Notebook</em> to create a new <code>.ipynb</code>."
       },
-      // New after old first-commit: Change theme
       {
         text: "What command do you use to change the theme on your website?",
         choices: [
@@ -210,14 +224,7 @@ permalink: /tools/kasm-setup
       }
     ];
 
-    /* ---------------------------------------------------------
-     * Build the final ordered list of 10 questions:
-     *   Q1–Q4 (original[0..3]),
-     *   then new[0] (access cloud),
-     *   then new[1] (clone),
-     *   then original[4] (first commit),
-     *   then new[2], new[3], new[4]
-     * --------------------------------------------------------- */
+    // Final ordered list of 10 questions
     const questions = [
       originalQuestions[0],
       originalQuestions[1],
@@ -231,53 +238,125 @@ permalink: /tools/kasm-setup
       newQuestionsOrdered[4]
     ];
 
-    /* ---------------------------------------------------------
-     * Cover pages (existing 5 + new 5 you provided)
-     * Index here matches the 'questions' array above.
-     * --------------------------------------------------------- */
+    // Cover texts, one per question in the same order
     const coverTexts = [
-      // Existing covers for the original first four:
-      "Before question 1. Please answer this question before forking the Repository",
-      "Before question  2. Please answer this question before you finish making your account on Open Coding Society",
-      "Before question 3. Please answer this question before youopen up VS Code",
-      "Before question 4: Please answer this question before you open up your repositories through terminal",
-      // New covers you specified:
-      "Please answer this question before you open your cloud computer",
-      "Please answer this question before you clone your student repository",
-      // Existing cover for the original 'first commit' question:
-      "Please answer this question before you make your first commit on VS Code",
-      // New covers (console, notebook, theme):
-      "Please answer this question before you try to add the Jokes on your website",
-      "Please answer this question before you try to add the Jokes on your website",
-      "Please answer this question before you try to change the theme for your websiite"
+      "Trial 1 — The Forking Fork: Answer before you fork the Repository",
+      "Trial 2 — Kasm Keystone: Answer before you finish making your account on Open Coding Society",
+      "Trial 3 — The Editor’s Gate: Answer before you open VS Code inside Kasm",
+      "Trial 4 — Found the Basecamp: Answer before you open your repositories through terminal",
+      "Trial 5 — Cloud Portal: Answer before you open your cloud computer",
+      "Trial 6 — Binding Ritual: Answer before you clone your student repository",
+      "Trial 7 — First Inscription: Answer before your first commit on VS Code",
+      "Trial 8 — Console Crystal: Answer before you add the jokes (you’ll need the console)",
+      "Trial 9 — The Notebook Tome: Answer before you add the jokes inside a notebook",
+      "Trial 10 — Skinchanger: Answer before you change the theme for your website"
     ];
 
-    // ---------- engine (same gated flow; explanation persists until Continue) ----------
+    /* -------------------------
+     * STATE / UI ELEMENTS
+     * ------------------------- */
     let currentQuestionIndex = 0;
     let phase = "cover"; // "cover" | "question"
+    let xp = 0, streak = 0;
+    const XP_PER_CORRECT = 100;
+    const RANKS = [
+      {name:"Novice Adventurer", threshold:0},
+      {name:"Apprentice Tinkerer", threshold:300},
+      {name:"Journeyman Builder", threshold:600},
+      {name:"Senior Wayfinder", threshold:900},
+      {name:"Master of Setup", threshold:1200}
+    ];
+
     const stageEl = document.getElementById('stage');
     const resetBtn = document.getElementById('resetBtn');
     const showAnswersBtn = document.getElementById('showAnswersBtn');
     const progressDisplay = document.getElementById('progressDisplay');
     const globalFeedback = document.getElementById('globalFeedback');
+    const continueBtn = document.getElementById('continueBtn');
 
-    function updateProgress(){
-      progressDisplay.textContent = `Progress: ${Math.min(currentQuestionIndex, questions.length)} / ${questions.length}`;
+    const xpDisplay = document.getElementById('xpDisplay');
+    const streakDisplay = document.getElementById('streakDisplay');
+    const xpFill = document.getElementById('xpFill');
+    const rankTag = document.getElementById('rankTag');
+    const mapEl = document.getElementById('map');
+    const mascotBubble = document.getElementById('mascotBubble');
+
+    const confettiEl = document.getElementById('confetti');
+
+    /* -------------------------
+     * MAP / HUD / CONFETTI
+     * ------------------------- */
+    function buildMap(){
+      mapEl.innerHTML = '';
+      for(let i=0;i<questions.length;i++){
+        const node = document.createElement('div');
+        node.className = 'node';
+        node.textContent = i+1;
+        if(i < currentQuestionIndex){ node.classList.add('done'); node.title = `Node ${i+1}: cleared`; }
+        else if(i === currentQuestionIndex){ node.classList.add('active'); node.title = `Node ${i+1}: current`; }
+        else { node.title = `Node ${i+1}: locked`; }
+        mapEl.appendChild(node);
+        if(i !== questions.length-1){
+          const link = document.createElement('div');
+          link.className = 'link';
+          mapEl.appendChild(link);
+        }
+      }
     }
 
+    function updateHUD(){
+      progressDisplay.textContent = `Progress: ${Math.min(currentQuestionIndex, questions.length)} / ${questions.length}`;
+      xpDisplay.textContent = `XP: ${xp}`;
+      streakDisplay.textContent = `Streak: ${streak}`;
+      const nextRank = RANKS.reduce((a,b)=> b.threshold<=xp ? b : a, RANKS[0]);
+      rankTag.textContent = `Rank: ${nextRank.name}`;
+      const nextIndex = Math.min(RANKS.findIndex(r=>r.threshold>xp), RANKS.length-1);
+      const curIndex = Math.max(nextIndex-1,0);
+      const curBase = RANKS[curIndex].threshold;
+      const curCap = RANKS[Math.min(curIndex+1, RANKS.length-1)].threshold || (curBase+300);
+      const pct = Math.max(0, Math.min(100, ((xp - curBase) / Math.max(1, curCap - curBase)) * 100));
+      xpFill.style.width = pct + '%';
+    }
+
+    function setMascot(text){
+      mascotBubble.innerHTML = text;
+    }
+
+    function confettiBurst(){
+      const icons = ["✨","💎","🗡️","🛡️","⚙️","🔧","🧪","📦","🚀","🔮"];
+      for(let i=0;i<24;i++){
+        const s = document.createElement('span');
+        s.textContent = icons[(Math.random()*icons.length)|0];
+        s.style.left = (Math.random()*100) + 'vw';
+        s.style.animationDelay = (Math.random()*0.3)+'s';
+        confettiEl.appendChild(s);
+        setTimeout(()=>{ confettiEl.removeChild(s); }, 1600);
+      }
+    }
+
+    /* -------------------------
+     * RENDER
+     * ------------------------- */
     function render(){
       stageEl.innerHTML = '';
-      globalFeedback.innerHTML = '';
-      updateProgress();
+      globalFeedback.textContent = '';
+      updateHUD();
+      buildMap();
 
       if(currentQuestionIndex >= questions.length){
         const done = document.createElement('section');
         done.className = 'card';
         done.innerHTML = `
-          <div class="cover-title">All done! 🎉</div>
-          <div class="cover-sub">You answered all ${questions.length} questions correctly.</div>
+          <div class="cover-title">Quest Complete! 🎉</div>
+          <div class="cover-sub">You cleared all ${questions.length} trials. Title earned: <strong>Master of Setup</strong>.</div>
+          <div class="loot">
+            <span>🏆</span>
+            <div><strong>Loot Acquired:</strong> Setup Sigil — You may now speed-run future installs with confidence.</div>
+          </div>
         `;
         stageEl.appendChild(done);
+        confettiBurst();
+        setMascot("Legendary! You’ve forged your toolkit. If you want to practice again, hit Reset Quest.");
         return;
       }
 
@@ -293,7 +372,8 @@ permalink: /tools/kasm-setup
       card.className = 'card';
       card.innerHTML = `
         <div class="cover-title">${text}</div>
-        <div class="cover-sub">Click Continue to proceed to Question ${index + 1}.</div>
+        <div class="cover-sub">Press <strong>Continue</strong> to face Trial ${index + 1}.</div>
+        <div class="lore">Archivist’s Note: Victory demands proof. Choose wisely—only a correct answer unlocks the next node.</div>
       `;
       const actions = document.createElement('div');
       actions.className = 'actions';
@@ -301,6 +381,7 @@ permalink: /tools/kasm-setup
       btn.textContent = 'Continue';
       btn.addEventListener('click', () => {
         phase = 'question';
+        setMascot(`Trial ${index+1}: Answer to advance.`);
         render();
       });
       actions.appendChild(btn);
@@ -314,7 +395,7 @@ permalink: /tools/kasm-setup
       card.dataset.index = index;
 
       card.innerHTML = `
-        <div class="question-number">Question ${index + 1}</div>
+        <div class="question-number">Trial ${index + 1}</div>
         <div class="question-text">${q.text}</div>
       `;
 
@@ -355,10 +436,10 @@ permalink: /tools/kasm-setup
       actions.className = 'actions';
 
       const submit = document.createElement('button');
-      submit.textContent = 'Submit answer';
+      submit.textContent = 'Lock in answer';
 
       const nextBtn = document.createElement('button');
-      nextBtn.textContent = 'Continue';
+      nextBtn.textContent = 'Advance';
       nextBtn.className = 'secondary';
       nextBtn.style.display = 'none';
 
@@ -370,35 +451,57 @@ permalink: /tools/kasm-setup
         feedback.className = 'feedback';
 
         if(val === null){
-          feedback.textContent = 'No answer selected.';
+          feedback.innerHTML = 'No choice selected — the gate remains closed.';
           feedback.style.display = 'block';
           feedback.classList.add('wrong');
+          setMascot("Pick one path before proceeding, hero.");
           return;
         }
 
         if(val === q.correct){
-          feedback.innerHTML = 'Correct.' + (q.explanation ? ' ' + q.explanation : '');
+          feedback.innerHTML = 'Success! ' + (q.explanation ? q.explanation : '');
           feedback.style.display = 'block';
           feedback.classList.add('correct');
 
-          // lock choices; keep explanation visible
+          // XP & streak
+          streak += 1;
+          xp += XP_PER_CORRECT;
+          updateHUD();
+
+          // lock choices
           card.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
           submit.disabled = true;
 
-          // manual advance
           nextBtn.style.display = '';
           nextBtn.focus();
+
+          // ✅ Add your CapCut video below the explanation
+          const video = document.createElement('video');
+          video.controls = true;
+          video.width = 560;
+          video.preload = 'metadata';
+          video.style.marginTop = '12px';
+          video.setAttribute('playsinline','');
+          // Use baseurl so it works on GitHub Pages with /CSP-team
+          video.src = `{{ site.baseurl }}/assets/videos/q${index+1}.mp4`;
+          feedback.appendChild(video);
+
+          setMascot(`Gate ${index+1} opened. Collect your shard and advance!`);
         } else {
+          streak = 0;
+          updateHUD();
           const correctText = q.choices[q.correct];
-          feedback.innerHTML = `Wrong. Correct answer: "${correctText}". ${q.explanation || ''}`;
+          feedback.innerHTML = `Alas! Correct answer: <em>"${correctText}"</em>. ${q.explanation || ''}`;
           feedback.style.display = 'block';
           feedback.classList.add('wrong');
+          setMascot("Missed this one. Study the hint above and try again.");
         }
       });
 
       nextBtn.addEventListener('click', () => {
         currentQuestionIndex++;
         phase = coverTexts[currentQuestionIndex] ? 'cover' : 'question';
+        if(currentQuestionIndex === questions.length){ confettiBurst(); }
         render();
       });
 
@@ -408,14 +511,6 @@ permalink: /tools/kasm-setup
       stageEl.appendChild(card);
     }
 
-    resetBtn.addEventListener('click', () => {
-      currentQuestionIndex = 0;
-      phase = coverTexts[0] ? 'cover' : 'question';
-      stageEl.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-      globalFeedback.innerHTML = '';
-      render();
-    });
-
     showAnswersBtn.addEventListener('click', () => {
       if(phase !== 'question' || currentQuestionIndex >= questions.length) return;
       const q = questions[currentQuestionIndex];
@@ -423,10 +518,13 @@ permalink: /tools/kasm-setup
       const correctChoice = document.querySelector(`input[name="q${currentQuestionIndex}"][value="${q.correct}"]`);
       if(!correctChoice) return;
       const label = correctChoice.closest('label') || correctChoice.parentElement;
-      label.style.outline = '3px solid rgba(125,211,252,0.14)';
-      setTimeout(() => label.style.outline = '', 2000);
+      label.style.outline = '3px solid rgba(134,225,255,0.35)';
+      label.style.boxShadow = '0 0 0 4px rgba(134,225,255,0.08)';
+      setTimeout(() => { label.style.outline = ''; label.style.boxShadow = ''; }, 1600);
+      setMascot("The Archivist grants a glimpse of truth…");
     });
 
+    // Click whole label to select radio
     document.addEventListener('click', (e) => {
       const label = e.target.closest('label');
       if(label){
@@ -435,6 +533,24 @@ permalink: /tools/kasm-setup
       }
     });
 
+    // Reset
+    resetBtn.addEventListener('click', () => {
+      currentQuestionIndex = 0;
+      phase = coverTexts[0] ? 'cover' : 'question';
+      streak = 0; xp = 0;
+      setMascot("The quest begins anew. Fortune favors the bold.");
+      render();
+    });
+
+    // Optional continue button (not strictly needed, cover has one)
+    continueBtn.addEventListener('click', () => {
+      if(phase === 'cover'){
+        phase = 'question';
+        render();
+      }
+    });
+
+    // INIT
     phase = coverTexts[0] ? 'cover' : 'question';
     render();
   </script>

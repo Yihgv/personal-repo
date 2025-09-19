@@ -70,7 +70,7 @@ permalink: /hacks/rock-paper-scissor/
   container.setAttribute("style", instructionsStyle);
   container.innerHTML = instructionsHTML;
   document.getElementById("mainGameBox").appendChild(container);
-  // --- Exit button ---
+// --- Exit button ---
 const exitBtn = document.createElement("button");
 exitBtn.textContent = "Exit";
 exitBtn.style.fontSize = "18px";
@@ -81,13 +81,20 @@ exitBtn.style.cursor = "pointer";
 exitBtn.style.backgroundColor = "#ff6666";
 exitBtn.style.color = "white";
 exitBtn.style.border = "2px solid darkred";
+
 exitBtn.addEventListener("click", () => {
+  // Disable the game buttons
   ["rock-btn","paper-btn","scissors-btn"].forEach(id => {
     const btn = document.getElementById(id);
     if(btn) btn.disabled = true;
   });
   exitBtn.disabled = true;
+
+  // Optional message
   document.getElementById("resultBox").innerHTML = "<h3>Thanks for playing!</h3>";
+
+  // Redirect to team repo page
+  window.location.href = "https://debuggers-csp.github.io/CSP-team/";
 });
 
 // append below images div

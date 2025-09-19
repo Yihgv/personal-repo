@@ -1,7 +1,7 @@
 ---
 layout: base
 title: Memory Game
-permalink: /three-system-guide.md
+permalink: /home/three-system-guide.md
 ---
 ## Three systems
 

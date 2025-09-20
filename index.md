@@ -4,13 +4,10 @@ title: We are Debuggers
 hide: true
 ---
 
-Hi! we are the Debuggers
+Hi! We are the Debuggers
 
-## Three system
-
-<a href="/three-system" style="display: inline-block; padding: 10px 20px; background-color: #0084ff; color: black; text-align: center; text-decoration: none; border-radius: 5px; font-weight: bold;">
-    Three Systems
-</a>
+## Three systems
+<a href="{{ site.baseurl }}/three-system" style="display:inline-block;background-color:#0084ff;color:black;padding:10px 20px;border-radius:5px;font-weight:bold;text-decoration:none;">Three Systems</a>
 
 
 ### Development Environment

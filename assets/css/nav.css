@@ -1,0 +1,64 @@
+/* Navigation bar styling (lightweight, theme-friendly) */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #0c1f34; /* deep navy that works with Cayman */
+  color: #e8eef6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.site-brand {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.site-tagline {
+  color: #9fc1dc;
+  font-size: 0.9rem;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  color: #e8eef6;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.site-nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .nav-container { flex-wrap: wrap; gap: 8px; }
+  .site-nav { width: 100%; }
+  .site-nav ul { justify-content: flex-start; flex-wrap: wrap; }
+}

@@ -18,7 +18,7 @@ hide: true
 }
 
 .game-shell { max-width: 760px; margin: 0 auto; }
-.game-title { text-align: center; margin: .5rem 0 0; }
+.game-title { text-align: left; margin: .5rem 0 0; }
 
 .game-card {
   background: #ffffff;
@@ -32,11 +32,11 @@ hide: true
   .game-card { background: #0f172a; border-color: rgba(255,255,255,0.08); }
 }
 
-.hud { display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-bottom: 8px; }
+.hud { display:flex; align-items:center; justify-content:flex-start; gap: 12px; margin-bottom: 12px; }
 .hud .score { font-weight: 700; }
-.hud .hint { color: var(--muted); font-size: .95rem; }
+.hud .hint { display:none; }
 
-.kbd, kbd { display:inline-block; padding: 2px 6px; border-radius:6px; background:#e5e7eb; color:#111827; font-weight:700; }
+.kbd, kbd { display:inline-block; padding: 2px 6px; border-radius:6px; background:#ffffff; color:#111827; font-weight:700; }
 @media (prefers-color-scheme: dark) { .kbd, kbd { background:#1f2937; color:#e5e7eb; } }
 
 .wrap{ margin-left:auto; margin-right:auto; }
@@ -48,12 +48,10 @@ canvas:focus{ outline:none; }
 
 /* Links styled as buttons */
 #gameover a, #setting a, #menu a{
-  font-size: 20px; display:inline-block; margin: 6px 8px; text-decoration:none;
-  background: var(--brand); color: #fff; padding: 8px 14px; border-radius: 10px;
-  transition: transform .08s ease, filter .15s ease;
+    font-size: 28px; display:block; margin: 8px 0; text-decoration:none;
+    color: #1e90ff; font-weight: 600;
 }
-#gameover a:hover, #setting a:hover, #menu a:hover{ cursor: pointer; filter: brightness(1.05); }
-#gameover a:active, #setting a:active, #menu a:active{ transform: translateY(1px); }
+#gameover a:hover, #setting a:hover, #menu a:hover{ text-decoration: underline; cursor: pointer; }
 
 /* Screen visibility */
 #menu{ display:block; }
@@ -65,55 +63,67 @@ canvas:focus{ outline:none; }
 #setting label{ cursor:pointer; margin-right:8px; padding:4px 10px; border-radius:8px; background:#e5e7eb; color:#111827; }
 #setting input:checked + label{ background-color: #d1eaff; color: #0b5394; }
 @media (prefers-color-scheme: dark) { #setting label{ background:#1f2937; color:#e5e7eb; } }
+
+/* Inner stage panel for screens */
+.stage {
+    text-align:center;
+    background: rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 14px;
+    padding: 24px 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+@media (prefers-color-scheme: dark) { .stage { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.06);} }
 </style>
 
 
 <div class="game-shell">
   <h2 class="game-title">Snake</h2>
-  <div class="game-card" style="text-align:center;">
-    <div class="hud">
-      <div class="score">Score: <span id="score_value">0</span></div>
-      <div class="hint">Press <kbd>Space</kbd> to start • Use Arrow keys or WASD</div>
+    <div class="game-card">
+        <div class="hud">
+            <div class="score">Score: <span id="score_value">0</span></div>
+        </div>
+        <div class="stage">
+            <!-- Main Menu -->
+            <div id="menu" class="py-3">
+                <p>Welcome to Snake, press <kbd>space</kbd> to begin</p>
+                <a id="new_game" class="link-alert">new game</a>
+                <a id="setting_menu" class="link-alert">settings</a>
+            </div>
+            <!-- Game Over -->
+            <div id="gameover" class="py-3">
+                <p>Game Over, press <kbd>space</kbd> to try again</p>
+                <a id="new_game1" class="link-alert">new game</a>
+                <a id="setting_menu1" class="link-alert">settings</a>
+            </div>
+            <!-- Play Screen -->
+            <canvas id="snake" class="wrap" width="500" height="500" tabindex="1"></canvas>
+            <!-- Settings Screen -->
+            <div id="setting" class="py-3">
+                <p>Settings Screen, press <kbd>space</kbd> to go back to playing</p>
+                <a id="new_game2" class="link-alert">new game</a>
+                <br>
+                <p>Speed:
+                    <input id="speed1" type="radio" name="speed" value="110" checked/>
+                    <label for="speed1">Slow</label>
+                    <input id="speed2" type="radio" name="speed" value="80"/>
+                    <label for="speed2">Medium</label>
+                    <input id="speed3" type="radio" name="speed" value="40"/>
+                    <label for="speed3">Fast</label>
+                    <input id="speed4" type="radio" name="speed" value="30"/>
+                    <label for="speed4">Very Fast</label>
+                    <input id="speed5" type="radio" name="speed" value="19"/>
+                    <label for="speed5">Impossible</label>
+                </p>
+                <p>Wall:
+                    <input id="wallon" type="radio" name="wall" value="1" checked/>
+                    <label for="wallon">On</label>
+                    <input id="walloff" type="radio" name="wall" value="0"/>
+                    <label for="walloff">Off</label>
+                </p>
+            </div>
+        </div>
     </div>
-        <!-- Main Menu -->
-        <div id="menu" class="py-3">
-            <p>Welcome to Snake, press <kbd>Space</kbd> to begin</p>
-            <a id="new_game" class="link-alert">New Game</a>
-            <a id="setting_menu" class="link-alert">Settings</a>
-        </div>
-        <!-- Game Over -->
-        <div id="gameover" class="py-3">
-            <p>Game Over, press <kbd>Space</kbd> to try again</p>
-            <a id="new_game1" class="link-alert">New Game</a>
-            <a id="setting_menu1" class="link-alert">Settings</a>
-        </div>
-        <!-- Play Screen -->
-        <canvas id="snake" class="wrap" width="500" height="500" tabindex="1"></canvas>
-        <!-- Settings Screen -->
-        <div id="setting" class="py-3">
-            <p>Settings Screen, press <kbd>Space</kbd> to go back to playing</p>
-            <a id="new_game2" class="link-alert">New Game</a>
-            <br>
-            <p>Speed:
-                <input id="speed1" type="radio" name="speed" value="110" checked/>
-                <label for="speed1">Slow</label>
-                <input id="speed2" type="radio" name="speed" value="80"/>
-                <label for="speed2">Medium</label>
-                <input id="speed3" type="radio" name="speed" value="40"/>
-                <label for="speed3">Fast</label>
-                <input id="speed4" type="radio" name="speed" value="30"/>
-                <label for="speed4">Very Fast</label>
-                <input id="speed5" type="radio" name="speed" value="19"/>
-                <label for="speed5">Impossible</label>
-            </p>
-            <p>Wall:
-                <input id="wallon" type="radio" name="wall" value="1" checked/>
-                <label for="wallon">On</label>
-                <input id="walloff" type="radio" name="wall" value="0"/>
-                <label for="walloff">Off</label>
-            </p>
-        </div>
-  </div>
 </div>
 
 <script>

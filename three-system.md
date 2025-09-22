@@ -20,7 +20,9 @@ permalink: /three-system
   .sys a.btn .chev{ transition: transform .12s ease; }
   .sys a.btn:hover .chev{ transform: translateX(2px); }
   .sys .item{ padding:12px; border:1px solid rgba(0,0,0,0.06); border-radius:12px; }
-  .sys .item h3{ margin:6px 0 6px; font-size:18px; }
+  .sys .item .title-row{ display:flex; align-items:center; gap:10px; margin:2px 0 8px; }
+  .sys .item h3{ margin:0; font-size:18px; }
+  .sys .item img.logo{ width:28px; height:28px; object-fit:contain; border-radius:6px; display:block; }
   .sys .item p{ margin:0; color: var(--muted); font-size:14px; }
   @media (prefers-color-scheme: dark){
     :root{ --text:#e5e7eb; --muted:#9ca3af; --card:#0b1220; }
@@ -40,17 +42,26 @@ permalink: /three-system
   <div class="sys-card">
     <div class="sys-grid">
       <div class="item">
-        <h3>Windows</h3>
+        <div class="title-row">
+          <img class="logo" src="{{ site.baseurl }}/images/Windows11.png" alt="Windows logo">
+          <h3>Windows</h3>
+        </div>
         <p>VS Code, PATH, Make, and local server.</p>
         <a class="btn" href="{{ site.baseurl }}/tools/windows-setup">Open Windows guide <span class="chev">→</span></a>
       </div>
       <div class="item">
-        <h3>macOS</h3>
+        <div class="title-row">
+          <img class="logo" src="{{ site.baseurl }}/images/MacOS.png" alt="Apple macOS logo">
+          <h3>macOS</h3>
+        </div>
         <p>Command Line Tools, Homebrew, VS Code.</p>
         <a class="btn" href="{{ site.baseurl }}/tools/mac-setup">Open macOS guide <span class="chev">→</span></a>
       </div>
       <div class="item">
-        <h3>Kasm</h3>
+        <div class="title-row">
+          <img class="logo" src="{{ site.baseurl }}/images/Kasm.png" alt="Kasm logo">
+          <h3>Kasm</h3>
+        </div>
         <p>Browser-based development environment.</p>
         <a class="btn" href="{{ site.baseurl }}/tools/kasm-setup">Open Kasm guide <span class="chev">→</span></a>
       </div>

@@ -11,21 +11,25 @@ permalink: /tools/kasm-setup
   <title>Setup Quest — Tech Adventure</title>
   <style>
     :root{
-      --bg:#0a0f1b; --card:#0b1220; --muted:#9aa4b2; --accent:#86e1ff;
+      --bg:#0a0f1b; --card:#0b1220; --muted:#ffffff; --accent:#86e1ff;
       --accent2:#a7f3d0; --correct:#22c55e; --wrong:#f43f5e; --radius:14px;
       --ink:#e6eef6;
       color-scheme: dark;
     }
     *{box-sizing:border-box}
-    body{
-      font-family: Inter, ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      margin:0; padding:28px; color:var(--ink); -webkit-font-smoothing:antialiased;
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(134,225,255,0.08), transparent 60%),
-        radial-gradient(900px 400px at 90% 10%, rgba(167,243,208,0.07), transparent 60%),
-        linear-gradient(180deg, #081226 0%, #070f20 100%);
-    }
-    .wrap{max-width:980px;margin:0 auto;}
+   body {
+  font-family: Inter, ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  padding: 28px;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+background: url('{{ site.baseurl }}/assets/setup-adventure.webp') no-repeat center center fixed;
+  background-size: cover;
+}
+body, h1, h2, h3, p, .subtitle, .tag, .btn, .hud, .card {
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+  .wrap{max-width:980px;margin:0 auto;}
     header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
     header h1{font-size:22px;margin:0}
     .subtitle{color:var(--muted);font-size:13px;margin-top:2px}
@@ -38,8 +42,14 @@ permalink: /tools/kasm-setup
     .btn{background:var(--accent); color:#022; border:none; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer}
     .btn.secondary{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.08)}
     .btn.ghost{background:transparent;color:var(--ink);border:1px dashed rgba(255,255,255,0.12)}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius); padding:18px; box-shadow:0 10px 28px rgba(2,6,23,0.55); margin-bottom:16px}
+   .card {
+  background: rgba(0, 0, 0, 0.7); /* solid dark background */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.55);
+  margin-bottom: 16px;
+}
     .map{display:flex; gap:10px; align-items:center; overflow-x:auto; padding:10px 4px; margin-bottom:10px}
     .node{--size:28px;width:var(--size); height:var(--size); border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10);
       display:grid; place-items:center; font-size:12px; color:var(--muted); flex:0 0 auto}
@@ -83,15 +93,14 @@ permalink: /tools/kasm-setup
         </div>
       </div>
     </header>
-
-    <div class="card">
+  <div class="card">
       <div class="map" id="map"></div>
       <div class="mascot"><div class="bubble" id="mascotBubble">Welcome, adventurer! Click <strong>Continue</strong> when you’re ready to face the first trial.</div></div>
     </div>
 
-    <main id="stage"></main>
+   <main id="stage"></main>
 
-    <div class="card">
+  <div class="card">
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <button id="continueBtn" class="btn" style="display:none">Continue</button>
         <span class="tag" id="progressDisplay">Progress: 0 / 10</span>

@@ -86,7 +86,7 @@ let speedMultiplier = 1;
 const gravityToggle = document.getElementById('gravityToggle');
 const GRAVITY_FORCE = 0.25; // pixels/frame²
 
-// === Anti "yo-yo vertical" fix ===
+// === Bug fix ===
 const MIN_X_SPEED = 2.0; 
 function enforceMinXSpeed() {
   if (Math.abs(ballSpeedX) < MIN_X_SPEED) {
@@ -95,7 +95,7 @@ function enforceMinXSpeed() {
   }
 }
 
-// ======= UI / Boost helpers =======
+// ======= UI helper =======
 function updateBoostStatus() { boostStatus.textContent = "x" + speedMultiplier.toFixed(2); }
 
 function clampSpeed() {
@@ -129,7 +129,7 @@ function resetSpeedTracking() {
   updateBoostStatus();
 }
 
-// === localStorage helpers ===
+// === localStorage ===
 function loadSettings() {
   const raw = localStorage.getItem('pong.settings');
   if (!raw) return;

@@ -8,7 +8,10 @@ permalink: /tools/mac-setup
 <style>
   :root { --bg:#0f172a; --panel:#111827; --panel2:#0b1220; --text:#e5e7eb; --muted:#9ca3af; --accent:#38bdf8; --accent2:#22d3ee; --good:#34d399; --bad:#f87171; --border:#1f2937; }
   html,body{height:100%}
-  body{margin:0;background:radial-gradient(1200px 600px at 80% -200px,#0a1224 0%,var(--bg) 45%,#070b16 100%);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;display:grid;place-items:start center;padding:32px 16px 80px}
+  /* Page background image with color fallback and overlay for readable text.
+    Use Jekyll's relative_url for correct site builds and a local filesystem
+    fallback so the image is visible in VS Code file previews. */
+  body{margin:0;background-color:var(--bg);background-image:linear-gradient(rgba(3,7,18,0.55), rgba(3,7,18,0.55)), url('{{ "/assets/setup-adventure.webp" | relative_url }}'), url('../assets/setup-adventure.webp');background-size:cover;background-position:center;background-repeat:no-repeat;color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;display:grid;place-items:start center;padding:32px 16px 80px}
   .app{width:min(920px,100%);background:linear-gradient(180deg,var(--panel) 0%,var(--panel2) 100%);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:hidden}
   header{padding:20px 24px;border-bottom:1px solid var(--border);display:grid;gap:6px}
   header h1{margin:0;font-size:20px;letter-spacing:.2px}

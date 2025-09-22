@@ -8,7 +8,9 @@ permalink: /tools/windows-setup
 <!-- Page-specific styles -->
 <style>
   :root{--bg:#0f1724;--card:#0b1220;--text:#e6eef8;--muted:#9fb0c6;--accent:#6ee7b7;--wrong:#ff7b7b}
-  body{font-family:Inter,ui-sans-serif,system-ui,Helvetica,Arial;margin:0;padding:32px;background:linear-gradient(180deg,#051226 0%, #071827 100%);color:var(--text)}
+  /* Page background image with overlay; include multiple fallbacks so previews and builds find the file.
+    Order: absolute file URL (for VS Code preview), absolute repo path (/assets), repo-relative (assets/), file-relative (../assets/), then Jekyll relative_url. */
+  body{font-family:Inter,ui-sans-serif,system-ui,Helvetica,Arial;margin:0;padding:32px;background-color:var(--bg);background-image:linear-gradient(rgba(3,7,18,0.55), rgba(3,7,18,0.55)), url('file:///home/cyrus/opencs/CSP-team/assets/setup-adventure.webp'), url('/assets/setup-adventure.webp'), url('assets/setup-adventure.webp'), url('../assets/setup-adventure.webp'), url('{{ "/assets/setup-adventure.webp" | relative_url }}');background-size:cover;background-position:center;background-repeat:no-repeat;color:var(--text)}
   .container{max-width:900px;margin:0 auto}
   header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
   h1{margin:0;font-size:22px}

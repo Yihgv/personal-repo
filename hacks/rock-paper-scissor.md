@@ -1,16 +1,13 @@
 ---
 title: Rock paper Scissors
 comments: true
+hide: false
 layout: opencs
 description: Learn how to experiment with the console, elements, and see OOP in action while playing Rock paper Scissors!
 permalink: /hacks/rock-paper-scissor/
 ---
 
-<style>
-  body {
-    background-color: purple;  /* outside background */
-  }
-</style>
+
 <div id="mainGameBox" style="max-width:700px;margin:64px auto 48px auto;position:relative;z-index:2;">
   <div id="gameContainer">
     <canvas id='gameCanvas' style="display:none"></canvas>
@@ -22,7 +19,7 @@ permalink: /hacks/rock-paper-scissor/
     const instructionsStyle = `
   position: relative;
   margin: 64px auto 48px auto;
-   background: #20c6c9ff; /* teal-green */
+    background: linear-gradient(135deg, black, purple);
     color: white;
     padding: 30px;
     border-radius: 15px;
@@ -33,32 +30,30 @@ permalink: /hacks/rock-paper-scissor/
     overflow-y: auto;      /* added */
     font-family: 'Press Start 2P', cursive;
     border: 3px solid purple;
-    box-shadow: 0 0 20px rgba(0, 70, 128, 0.62);
+    box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
     text-align: center;
     `;
 
   const instructionsHTML = `
     <h2 style="color: purple; margin-bottom: 20px;">Rock Paper Scissors SHOOT!</h2>
     <div style="margin-bottom: 20px;">
+      <p>Play the game from your browser console!</p>
+      <p>Type <code>playRPS("rock")</code>, <code>playRPS("paper")</code>, or <code>playRPS("scissors")</code></p>
     </div>
     <div id="images" style="display:flex; justify-content:center; gap:20px; margin-bottom:14px;">
-
-  <button id="rock-btn" style="background:purple; border:2px solid white; border-radius:10px; padding:10px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; color:white; font-weight:bold; font-size:16px;">
-    <img id="rock-img" src="{{site.baseurl}}/images/rps/rock.jpg" style="width:40px; height:40px; border-radius:6px;">
-    Rock 🪨
-  </button>
-
-  <button id="paper-btn" style="background:purple; border:2px solid white; border-radius:10px; padding:10px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; color:white; font-weight:bold; font-size:16px;">
-    <img id="paper-img" src="{{site.baseurl}}/images/rps/paper.jpeg" style="width:40px; height:40px; border-radius:6px;">
-    Paper 📄
-  </button>
-
-  <button id="scissors-btn" style="background:purple; border:2px solid white; border-radius:10px; padding:10px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; color:white; font-weight:bold; font-size:16px;">
-    <img id="scissors-img" src="{{site.baseurl}}/images/rps/scissors.jpeg" style="width:40px; height:40px; border-radius:6px;">
-    Scissors ✂️
-  </button>
-
-</div>
+      <button id="rock-btn" style="background:none; border:none; padding:0; cursor:pointer;">
+        <img id="rock-img" src="{{site.baseurl}}/images/rps/rock.jpg"
+             style="width:100px; border:2px solid white; border-radius:10px;">
+      </button>
+      <button id="paper-btn" style="background:none; border:none; padding:0; cursor:pointer;">
+        <img id="paper-img" src="{{site.baseurl}}/images/rps/paper.jpeg"
+             style="width:100px; border:2px solid white; border-radius:10px;">
+      </button>
+      <button id="scissors-btn" style="background:none; border:none; padding:0; cursor:pointer;">
+        <img id="scissors-img" src="{{site.baseurl}}/images/rps/scissors.jpeg"
+             style="width:100px; border:2px solid white; border-radius:10px;">
+      </button>
+    </div>
     <div style="margin-bottom:18px; font-size:1.1em; color:#ffd700;">
       Click any icon to customize using the console!
     </div>
@@ -71,36 +66,6 @@ permalink: /hacks/rock-paper-scissor/
   container.setAttribute("style", instructionsStyle);
   container.innerHTML = instructionsHTML;
   document.getElementById("mainGameBox").appendChild(container);
-// --- Exit button ---
-const exitBtn = document.createElement("button");
-exitBtn.textContent = "Exit";
-exitBtn.style.fontSize = "18px";
-exitBtn.style.padding = "10px 20px";
-exitBtn.style.marginTop = "20px";
-exitBtn.style.borderRadius = "8px";
-exitBtn.style.cursor = "pointer";
-exitBtn.style.backgroundColor = "#ff6666";
-exitBtn.style.color = "white";
-exitBtn.style.border = "2px solid darkred";
-
-exitBtn.addEventListener("click", () => {
-  // Disable the game buttons
-  ["rock-btn","paper-btn","scissors-btn"].forEach(id => {
-    const btn = document.getElementById(id);
-    if(btn) btn.disabled = true;
-  });
-  exitBtn.disabled = true;
-
-  // Optional message
-  document.getElementById("resultBox").innerHTML = "<h3>Thanks for playing!</h3>";
-
-  // Redirect to team repo page
-  window.location.href = "https://debuggers-csp.github.io/CSP-team/";
-});
-
-// append below images div
-const imagesDiv = document.getElementById("images");
-imagesDiv.parentNode.insertBefore(exitBtn, imagesDiv.nextSibling);
 
   // --- helper: highlight chosen image ---
   function highlightImage(id){
@@ -403,8 +368,32 @@ imagesDiv.parentNode.insertBefore(exitBtn, imagesDiv.nextSibling);
   window.rock = rock;
   window.paper = paper;
   window.scissors = scissors;
-// --- play game on button click ---
-document.getElementById("rock-btn").addEventListener("click", () => playRPS("rock"));
-document.getElementById("paper-btn").addEventListener("click", () => playRPS("paper"));
-document.getElementById("scissors-btn").addEventListener("click", () => playRPS("scissors"));
+
+  // --- inspect-learning alerts (unchanged) ---
+  document.getElementById("rock-btn").addEventListener("click", () => {
+    alert("🪨 Try in the console:\n\nrock.setBorder('4px solid lime');");
+  });
+  document.getElementById("paper-btn").addEventListener("click", () => {
+    alert("📄 Try in the console:\n\npaper.rotate(15);");
+  });
+  document.getElementById("scissors-btn").addEventListener("click", () => {
+    alert("✂️ Try in the console:\n\nscissors.setWidth(150);");
+  });
 </script>
+<script>
+  //change borders
+  rock.setBorder('4px solid lime');
+  scissors.setBorder('8px solid purple');
+  paper.setBorder('4px solid yellow');
+
+//Rotate buttons
+  paper.rotate(15);
+  rock.rotate(10);
+
+//change width
+  rock.setWidth(120);
+  scissors.setWidth(90);
+  paper.setWidth(100);
+//background
+  document.body.style.background = "#222";
+  </script>

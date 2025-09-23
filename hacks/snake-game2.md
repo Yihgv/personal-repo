@@ -1,7 +1,7 @@
 ---
 layout: opencs
-title: Snake Game
-permalink: /snake
+title: Snake Game2
+permalink: /hacks/snake-game2
 ---
 
 <style>

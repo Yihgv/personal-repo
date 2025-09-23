@@ -63,8 +63,8 @@ permalink: /hacks/snake-game2
     }
 
     #setting input:checked + label{
-        background-color: #FFF;
-        color: #000;
+        background-color: #881313ff;
+        color:  #000000;
     }
 </style>
 
@@ -74,13 +74,13 @@ permalink: /hacks/snake-game2
     <div class="container bg-secondary" style="text-align:center;">
         <!-- Main Menu -->
         <div id="menu" class="py-4 text-light">
-            <p>Welcome to Snake, press <span style="background-color: #FFFFFF; color: #000000">space</span> to begin</p>
+            <p>Welcome to Snake, press <span style="background-color: #b62727ff; color: #000000">space</span> to begin</p>
             <a id="new_game" class="link-alert">new game</a>
             <a id="setting_menu" class="link-alert">settings</a>
         </div>
         <!-- Game Over -->
         <div id="gameover" class="py-4 text-light">
-            <p>Game Over, press <span style="background-color: #FFFFFF; color: #000000">space</span> to try again</p>
+            <p>Game Over, press <span style="background-color: #b31111ff; color: #000000">space</span> to try again</p>
             <a id="new_game1" class="link-alert">new game</a>
             <a id="setting_menu1" class="link-alert">settings</a>
         </div>
@@ -88,11 +88,11 @@ permalink: /hacks/snake-game2
         <canvas id="snake" class="wrap" width="320" height="320" tabindex="1"></canvas>
         <!-- Settings Screen -->
         <div id="setting" class="py-4 text-light">
-            <p>Settings Screen, press <span style="background-color: #FFFFFF; color: #000000">space</span> to go back to playing</p>
+            <p>Settings Screen, press <span style="background-color: #574242ff; color: #000000">space</span> to go back to playing</p>
             <a id="new_game2" class="link-alert">new game</a>
             <br>
             <p>Speed:
-                <input id="speed1" type="radio" name="speed" value="120" checked/>
+                <input id="speed1" type="radio" name="speed" value="240" checked/>
                 <label for="speed1">Slow</label>
                 <input id="speed2" type="radio" name="speed" value="75"/>
                 <label for="speed2">Normal</label>
@@ -257,28 +257,53 @@ permalink: /hacks/snake-game2
                     return;
                 }
             }
-            // Snake eats food checker
-            if(checkBlock(snake[0].x, snake[0].y, food.x, food.y)){
-                snake[snake.length] = {x: snake[0].x, y: snake[0].y};
-                altScore(++score);
-                addFood();
-                activeDot(food.x, food.y);
-            }
-            // Repaint canvas
-            ctx.beginPath();
-            ctx.fillStyle = "royalblue";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Paint snake
-            for(let i = 0; i < snake.length; i++){
-                activeDot(snake[i].x, snake[i].y);
-            }
-            // Paint food
-            activeDot(food.x, food.y);
-            // Debug
-            //document.getElementById("debug").innerHTML = snake_dir + " " + snake_next_dir + " " + snake[0].x + " " + snake[0].y;
-            // Recursive call after speed delay, déjà vu
-            setTimeout(mainLoop, snake_speed);
-        }
+            
+
+// Define the growth rate (increase snake length by this number on eating food)
+const growthRate = 3;  // Change this number to adjust growth (default is 1)
+
+// Snake eats food checker
+if (checkBlock(snake[0].x, snake[0].y, food.x, food.y)) {
+    // Increase snake length by the growth rate
+    for (let i = 0; i < growthRate; i++) {
+        // Add a new block at the head position, simulating growth
+        snake.push({x: snake[0].x, y: snake[0].y});
+    }
+    altScore(++score);
+    addFood();
+    activeDot(food.x, food.y);
+}
+
+// Repaint canvas
+ctx.beginPath();
+ctx.fillStyle = "royalblue";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Set up glowing effect for the snake
+ctx.shadowBlur = 10;           // Blur radius for the glow
+ctx.shadowColor = "rgba(0, 255, 255, 0.8)"; // Glow color (cyan with transparency)
+ctx.shadowOffsetX = 0;         // Horizontal offset of the glow
+ctx.shadowOffsetY = 0;         // Vertical offset of the glow
+
+// Paint snake with glow effect
+for (let i = 0; i < snake.length; i++) {
+    activeDot(snake[i].x, snake[i].y);
+}
+
+// Remove the glow effect for the food (optional, or you can keep the same effect)
+ctx.shadowBlur = 0; // Reset glow for food
+ctx.shadowColor = "transparent";  // Reset the shadow
+
+// Paint food
+activeDot(food.x, food.y);
+
+// Debug
+//document.getElementById("debug").innerHTML = snake_dir + " " + snake_next_dir + " " + snake[0].x + " " + snake[0].y;
+
+// Recursive call after speed delay
+setTimeout(mainLoop, snake_speed);
+
+
         /* New Game setup */
         /////////////////////////////////////////////////////////////
         let newGame = function(){

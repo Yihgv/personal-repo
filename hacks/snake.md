@@ -15,9 +15,9 @@ permalink: /snake/
 
     canvas{
         display: none;
-        border-style: solid;
+        border-style: dotted;
         border-width: 10px;
-        border-color: #FFFFFF;
+        border-color: #26c62e6b;
     }
     canvas:focus{
         outline: none;
@@ -25,11 +25,11 @@ permalink: /snake/
 
     /* All screens style */
     #gameover p, #setting p, #menu p{
-        font-size: 20px;
+        font-size: 40px;
     }
 
     #gameover a, #setting a, #menu a{
-        font-size: 30px;
+        font-size: 60px;
         display: block;
     }
 
@@ -39,7 +39,7 @@ permalink: /snake/
 
     #gameover a:hover::before, #setting a:hover::before, #menu a:hover::before{
         content: ">";
-        margin-right: 10px;
+        margin-right: 20px;
     }
 
     #menu{

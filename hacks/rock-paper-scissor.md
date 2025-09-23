@@ -148,7 +148,7 @@ permalink: /hacks/rock-paper-scissor/
 
   // --- assets ---
   const bgImage = new Image();
-  bgImage.src = '{{site.baseurl}}/images/platformer/backgrounds/alien_planet1.jpg';
+  bgImage.src = '{{site.baseurl}}/images/platformer/backgrounds/galaxy.jpg';
 
   const rockImg = new Image();
   rockImg.src = '{{site.baseurl}}/images/rps/rock_new.jpg';

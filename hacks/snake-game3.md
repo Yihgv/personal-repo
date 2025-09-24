@@ -2,7 +2,7 @@
 layout: opencs
 title: Snake Game3
 permalink: /hacks/snake-game3
-description: Enjoy the simple snake game
+description: Hunt cookies with your snake in cosmos!
 ---
 
 <style>
@@ -104,9 +104,9 @@ description: Enjoy the simple snake game
     }
 </style>
 
-<h2>Snake</h2>
+<h2>🍪Snake Cookie Hunt in Cosmos!🍪</h2>
 <div class="container">
-    <p class="fs-4">Score: <span id="score_value">0</span></p>
+    <p class="fs-4">Score: <span id="score_value">0</span>🍪🏆🍪</p>
     <div class="container bg-secondary" style="text-align:center;">
         <!-- Main Menu -->
         <div id="menu" class="py-4 text-light">

@@ -60,6 +60,11 @@ Hi! We are the Debuggers
     <div style="background-color: #88c920ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
         Snake Game2
     </div>
+    </a>
+    <a href="{{site.baseurl}}/hacks/snake-game3" style="text-decoration: none;">
+    <div style="background-color: #b520c9ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+        Snake Game3
+    </div>
 </a>
 </div>
 

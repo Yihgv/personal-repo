@@ -8,7 +8,7 @@ description: Enjoy the simple snake game
 <style>
 
     body{
-        background-image: url("galaxy.jpg");
+        background-image: url("{{ site.baseurl }}/images/galaxy.jpg");
         background-size: cover;
         background-repeat:no-repeat;
         background-position: center;
@@ -22,9 +22,6 @@ description: Enjoy the simple snake game
 
     canvas{
         display: none;
-        border-style: dotted;
-        border-width: 10px;
-        border-color: #26a1c6df;
     }
     canvas:focus{
         outline: none;
@@ -56,15 +53,41 @@ description: Enjoy the simple snake game
     }
 
     #menu{
+        text-align: center;
+        margin-top: 50px;
+        color:green;
+        font-size:40px;
         display: block;
+        border: 10px solid purple;
+        border-radius: 15px;
+        background-color:black;
+        box-shadow: 0 0 15px yellow;
+    }
+    
+    #menu p {
+    text-shadow: 0 0 10px yellow;
     }
 
     #gameover{
         display: none;
+        background-color: black;
+        color: red;
+        text-align: center;
+        padding:30x 50px;
+        border: 10px solid purple;
+        border-radius: 20px;
+        box-shadow: 0 0 15px yellow;
     }
 
     #setting{
         display: none;
+        background-color: black;
+        color: lightblue;
+        border: 5px solid purple;
+        border-radius: 15px;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 0 15px yellow;
     }
 
     #setting input{
@@ -76,8 +99,8 @@ description: Enjoy the simple snake game
     }
 
     #setting input:checked + label{
-        background-color: #881313ff;
-        color:  #000000;
+        background-color: #b1b126ff;
+        color:  #ffffffff;
     }
 </style>
 
@@ -98,7 +121,7 @@ description: Enjoy the simple snake game
             <a id="setting_menu1" class="link-alert">settings</a>
         </div>
         <!-- Play Screen -->
-        <canvas id="snake" class="wrap" width="320" height="320" tabindex="1"></canvas>
+        <canvas id="snake" class="wrap" width="480" height="480" tabindex="1"></canvas>
         <!-- Settings Screen -->
         <div id="setting" class="py-4 text-light">
             <p>Settings Screen, press <span style="background-color: #FFFFFF; color: #000000">space</span> to go back to playing</p>
@@ -147,7 +170,7 @@ description: Enjoy the simple snake game
         const button_setting_menu = document.getElementById("setting_menu");
         const button_setting_menu1 = document.getElementById("setting_menu1");
         // Game Control
-        const BLOCK = 10;   // size of block rendering
+        const BLOCK = 20;   // size of block rendering
         let SCREEN = SCREEN_MENU;
         let snake;
         let snake_dir;
@@ -270,23 +293,28 @@ description: Enjoy the simple snake game
                     return;
                 }
             }
-            // Snake eats food checker
+            // Snake eats cookie
             if(checkBlock(snake[0].x, snake[0].y, food.x, food.y)){
                 snake[snake.length] = {x: snake[0].x, y: snake[0].y};
                 altScore(++score);
                 addFood();
-                activeDot(food.x, food.y);
             }
             // Repaint canvas
             ctx.beginPath();
-            ctx.fillStyle = "royalblue";
+            ctx.fillStyle = "#FFB84D";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Paint snake
+            // Draw snake as emoji
+            ctx.font = BLOCK + "px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
             for(let i = 0; i < snake.length; i++){
-                activeDot(snake[i].x, snake[i].y);
+            ctx.fillText("🐍", snake[i].x * BLOCK + BLOCK/2, snake[i].y * BLOCK + BLOCK/2);
             }
-            // Paint food
-            activeDot(food.x, food.y);
+            // Draw cookie food
+            ctx.font = (BLOCK * 1.5) + "px Arial";  // make it fit the block size
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("🍪", food.x * BLOCK + BLOCK/2, food.y * BLOCK + BLOCK/2);
             // Debug
             //document.getElementById("debug").innerHTML = snake_dir + " " + snake_next_dir + " " + snake[0].x + " " + snake[0].y;
             // Recursive call after speed delay, déjà vu
@@ -374,8 +402,12 @@ description: Enjoy the simple snake game
         /////////////////////////////////////////////////////////////
         let setWall = function(wall_value){
             wall = wall_value;
-            if(wall === 0){screen_snake.style.borderColor = "#606060";}
-            if(wall === 1){screen_snake.style.borderColor = "#FFFFFF";}
+
+            //make sure border is alwways dotted and thick
+            screen_snake.style.borderStyle = "double";
+            screen_snake.style.borderWidth= "10px";
+            if(wall === 0){screen_snake.style.borderColor = "#5f48adff";}
+            if(wall === 1){screen_snake.style.borderColor = "#26a1c6";}
         }
     })();
 </script>

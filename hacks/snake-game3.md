@@ -89,7 +89,10 @@ description: Hunt cookies with your snake in cosmos!
         padding: 20px;
         box-shadow: 0 0 15px yellow;
     }
-
+    #setting label {
+        display: block;
+        margin: 8px 0;   /* space between each line */
+    }
     #setting input{
         display:none;
     }
@@ -128,12 +131,16 @@ description: Hunt cookies with your snake in cosmos!
             <a id="new_game2" class="link-alert">new game</a>
             <br>
             <p>Speed:
-                <input id="speed1" type="radio" name="speed" value="120" checked/>
-                <label for="speed1">Slow</label>
-                <input id="speed2" type="radio" name="speed" value="75"/>
-                <label for="speed2">Normal</label>
-                <input id="speed3" type="radio" name="speed" value="35"/>
-                <label for="speed3">Fast</label>
+                <input id="speed1" type="radio" name="speed" value="80" checked/>
+                <label for="speed1">Speed of Sound 🔊</label>
+                <input id="speed2" type="radio" name="speed" value="60"/>
+                <label for="speed2">Speed of Rocket 🚀</label>
+                <input id="speed3" type="radio" name="speed" value="40"/>
+                <label for="speed3">Speed of Lightning ⚡</label>
+                <input id="speed4" type="radio" name="speed" value="20"/>
+                <label for="speed4">Speed of light 💡</label>
+                <input id="speed5" type="radio" name="speed" value="5"/>
+                <label for="speed5">Speed of Cosmos expansion 🌌</label>
             </p>
             <p>Wall:
                 <input id="wallon" type="radio" name="wall" value="1" checked/>

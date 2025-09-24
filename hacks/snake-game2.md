@@ -2,22 +2,29 @@
 layout: opencs
 title: Snake Game2
 permalink: /hacks/snake-game2
+dscription: Enjoy the simple snake game
 ---
 
 <style>
 
     body{
+        background-image: url("galaxy.jpg");
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-position: center;
+        margin: 0;
     }
     .wrap{
         margin-left: auto;
         margin-right: auto;
+        border: 10px solid purple;
     }
 
     canvas{
         display: none;
         border-style: dotted;
         border-width: 10px;
-        border-color: #26c62e6b;
+        border-color: #26a1c6df;
     }
     canvas:focus{
         outline: none;
@@ -25,21 +32,27 @@ permalink: /hacks/snake-game2
 
     /* All screens style */
     #gameover p, #setting p, #menu p{
-        font-size: 40px;
+        font-size: 60px;
     }
 
     #gameover a, #setting a, #menu a{
         font-size: 60px;
         display: block;
+        color: green;
+        text-shadow: 6px 6px 8px purple;
     }
 
     #gameover a:hover, #setting a:hover, #menu a:hover{
-        cursor: pointer;
+        cursor: pointer !important;
+        color: blue !important;
+        text-shadow: 4px 4px 12px purple !important;
+        transition: all 0.2s ease !important;
     }
 
     #gameover a:hover::before, #setting a:hover::before, #menu a:hover::before{
-        content: ">";
-        margin-right: 20px;
+        content: ">" !important;
+        color: orange !important;
+        margin-right: 20px !important;
     }
 
     #menu{

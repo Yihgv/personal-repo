@@ -3,7 +3,7 @@ title: Rock paper Scissors
 comments: true
 hide: false
 layout: opencs
-description: Learn how to experiment with the console, elements, and see OOP in action while playing Rock paper Scissors!
+description: Playing Rock Paper Scissors using experiment with the console, elements, and see OOP in battle in Cosmos!
 permalink: /hacks/rock-paper-scissor/
 ---
 
@@ -148,7 +148,7 @@ permalink: /hacks/rock-paper-scissor/
 
   // --- assets ---
   const bgImage = new Image();
-  bgImage.src = '{{site.baseurl}}/images/platformer/backgrounds/galaxy.jpg';
+  bgImage.src = '{{site.baseurl}}/images/galaxy.jpg';
 
   const rockImg = new Image();
   rockImg.src = '{{site.baseurl}}/images/rps/rock_new.jpg';

@@ -56,7 +56,7 @@ Hi! We are the Debuggers
         Rock Paper Scissors
     </div>
     </a>
-    <a href="{{site.baseurl}}/hacks/snake-game2" style="text-decoration: none;">
+    <a href="{{site.baseurl}}/snake" style="text-decoration: none;">
     <div style="background-color: #88c920ff; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
         Snake Game2
     </div>

@@ -245,6 +245,13 @@ description: Hunt cookies with your snake in cosmos!
                 if(evt.code === "Space" && SCREEN !== SCREEN_SNAKE)
                     newGame();
             }, true);
+            // prevent arrow keys from scrolling
+            window.addEventListener("keydown", function(evt) {
+            const arrowKeys = [37, 38, 39, 40]; // left, up, right, down
+            if (arrowKeys.includes(evt.keyCode)) {
+            evt.preventDefault(); // stop page scrolling
+            }
+            });
         }
         /* Snake is on the Go (Driver Function)  */
         /////////////////////////////////////////////////////////////

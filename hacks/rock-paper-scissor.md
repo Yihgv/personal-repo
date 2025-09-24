@@ -7,6 +7,14 @@ description: Playing Rock Paper Scissors using experiment with the console, elem
 permalink: /hacks/rock-paper-scissor/
 ---
 
+<style>
+  body {
+    background: url('{{site.baseurl}}/images/galaxy.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 
 <div id="mainGameBox" style="
   max-width:700px;

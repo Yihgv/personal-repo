@@ -8,8 +8,18 @@ permalink: /hacks/rock-paper-scissor/
 ---
 
 
-<div id="mainGameBox" style="max-width:700px;margin:64px auto 48px auto;position:relative;z-index:2;">
-  <div id="gameContainer">
+<div id="mainGameBox" style="
+  max-width:700px;
+  margin:64px auto 48px auto;
+  position:relative;
+  z-index:2;
+  background: url('{{site.baseurl}}/images/galaxy.jpg') no-repeat center center;
+  background-size: cover;
+  border: 4px solid gold;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 15px 4px gold, 0 0 30px 8px rgba(255,215,0,0.4);
+">  <div id="gameContainer">
     <canvas id='gameCanvas' style="display:none"></canvas>
   </div>
 </div>
@@ -19,7 +29,7 @@ permalink: /hacks/rock-paper-scissor/
     const instructionsStyle = `
   position: relative;
   margin: 64px auto 48px auto;
-    background: linear-gradient(135deg, black, purple);
+    background: linear-gradient(135deg, black, gold);
     color: white;
     padding: 30px;
     border-radius: 15px;
@@ -29,13 +39,13 @@ permalink: /hacks/rock-paper-scissor/
     max-height: 80vh;      /* added */
     overflow-y: auto;      /* added */
     font-family: 'Press Start 2P', cursive;
-    border: 3px solid purple;
-    box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
+    border: 3px solid gold;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     text-align: center;
     `;
 
   const instructionsHTML = `
-    <h2 style="color: purple; margin-bottom: 20px;">Rock Paper Scissors SHOOT!</h2>
+    <h2 style="color: white; margin-bottom: 20px;">Rock Paper Scissors SHOOT!</h2>
     <div style="margin-bottom: 20px;">
       <p>Play the game from your browser console!</p>
       <p>Type <code>playRPS("rock")</code>, <code>playRPS("paper")</code>, or <code>playRPS("scissors")</code></p>

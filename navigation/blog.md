@@ -2,7 +2,7 @@
 layout: blogs 
 title: Blogs
 search_exclude: true
-permalink: /blogs/
+permalink: /personal-blogs/
 ---
 
 # A Blog Looking Back: My Growth This Semester 

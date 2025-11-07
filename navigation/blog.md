@@ -5,18 +5,18 @@ search_exclude: true
 permalink: /blogs/
 ---
 
-# 1. Comparing Yourself to the Beginning of the Year
+# 1. Comparing Yourself to the Beginning of the Year 💭
 
-What skills did you not have then, but have now?
+## What skills did you not have then, but have now?
 At the beginning of the year, I barely knew how to use most of the tools in computer science. I didn’t really understand VS Code, GitHub, or how websites were structured. Now, after one semester of AP CSP, I have more understanding of writing code in both JavaScript and Python, I am able to build pages on my website, and organize my files correctly.
 
-How has your confidence changed?
+## How has your confidence changed?
 My confidence has grown a lot because debugging no longer feels impossible. 
 
-Are you better at debugging, organizing files, understanding syntax, managing time, or collaborating?
+## Are you better at debugging, organizing files, understanding syntax, managing time, or collaborating?
 I’m better at using AI to help myself, finding errors, checking the console, and fixing mistakes. I’m also more organized with my repositories and better at managing my time during long assignments. Collaborating with others has become easier too.
 
-# 2. Key Takeaways From the Three Sprints
+# 2. Key Takeaways From the Three Sprints 🗡️
 
 Choose the 3 that apply (Tools, Fundamentals of JS/Python, West Coast Travel, Digital Famine, etc.):
 
@@ -36,14 +36,14 @@ One assignment I’m proud of was the game hacks, it was the first assignment I 
 In this sprint, I worked with knowledges and used it to build my team's project. I learned what an AI API is and how to use it.
 The part of my project that worked best was organizing the words of knowledges and showing it in a way that made sense. Even when code doesn't work, I learned to fix them piece by piece.
 
-# 3. N@tM (Night at the Museum) Reflection
+# 3. N@tM (Night at the Museum) Reflection 🌃
 
 N@tM was exciting because I got to share my project with real visitors.
 People were curious about my project, and a few even said they liked the design and the idea behind it.
 One thing that surprised me was how explaining something out loud made me notice small improvements I could make.
 Next time, I’d prepare a shorter explanation and add more visuals and funny factors in my contexts so people will understand the project faster in a fun way.
 
-# 4. Project Next Steps
+# 4. Project Next Steps 💡
 
 If I had more time, I would:
 
@@ -57,7 +57,7 @@ If I had more time, I would:
 
 - Organize the code so it’s easier to update later
 
-# 5. What You Want to Learn Next in CompSci
+# 5. What You Want to Learn Next in CompSci 🖥️
 
 Next semester, I want to learn:
 
@@ -69,19 +69,11 @@ Next semester, I want to learn:
 
 - Algorithms so I can improve my problem-solving skills
 
-# 6. Analytics Review
+# 6. Analytics Review 🏛️
 
-Reflect on:
+Our website was commented great, The final quiz were the greatest.I will improve the funny factor if I can do it again. 
 
-Website traffic
-
-Which posts or pages were most viewed
-
-Any surprises
-
-What you could improve next quarter
-
-# 7. MCQ Review
+# 7. MCQ Review 🚦
 ### 39/66
 
 corrections:
@@ -149,11 +141,12 @@ Q64. Cloud computing sites must consider security concerns in order to protect t
 
 Q65. If y is negative, then the condition count equals y will never be met since count begins at 0 and repeatedly increases.
 
-What concepts you misunderstood
+## What concepts you misunderstood:
+ undecidable problem and analyze data...
 
-Your new strategy going forward (ex: eliminate distractors, read carefully, practice with similar questions)
+I will read the data more carefully, and practice with similar questions
 
-# 8. Something Cool You’d Like to Share
+# 8. Something Cool You’d Like to Share 🛎️
 
 One cool thing this semester was finally fixing a bug that kept breaking my JavaScript page. It turned out to be the Java symbol we use to run Javascript in the python enviroment. After finding it, the whole program worked perfectly.
 

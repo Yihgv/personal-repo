@@ -11,22 +11,20 @@ permalink: /personal-blogs/
 # 1. Comparing Yourself to the Beginning of the Year 💭
 
 ## What skills did you not have then, but have now?
-In September, my coding skills were basically limited to making text bold in Google Docs. VS Code was a mysterious rectangle, GitHub sounded like a hub for nerdy cats, and if you'd told me I'd be using a "terminal," I'd have assumed I was joining the CIA.
-At the beginning of the year, I barely knew how to use most of the tools in computer science. I didn’t really understand VS Code, GitHub, or how websites were structured. Now, after one semester of AP CSP, I have more understanding of writing code in both JavaScript and Python, I am able to build pages on my website, and organize my files correctly.
+At the beginning of the year, I barely knew how to use most of the tools in computer science. My coding skills were basically limited to making text bold in Google Docs. VS Code was a mysterious shape, GitHub sounded like a hub for nerdy cats, and if you'd told me I'd be using a "terminal," I'd have assumed I was joining the Intelligence Agency or something.
 
-## How has your confidence changed?
+I didn’t really understand VS Code, GitHub, and how websites were structured. Now, after one semester of AP CSP, I have more understanding of writing code in both JavaScript and Python, I am able to build pages on my website, and organize my files correctly.
+
 My confidence has grown a lot because debugging no longer feels impossible. 
 
-## Are you better at debugging, organizing files, understanding syntax, managing time, or collaborating?
 I’m better at using AI to help myself, finding errors, checking the console, and fixing mistakes. I’m also more organized with my repositories and better at managing my time during long assignments. Collaborating with others has become easier too.
 
 # 2. Key Takeaways From the Three Sprints 🗡️
 
-Choose the 3 that apply (Tools, Fundamentals of JS/Python, West Coast Travel, Digital Famine, etc.):
 
 ## Sprint 1: Tools
 
-This was the "I have no idea what I'm doing" phase. I made more commits with messages like "please work" and "idk what this does" than I'd like to admit. Learning that the terminal isn't just for cool hackers in movies was a revelation. When Jekyll finally built my site without 50 errors, I felt a power surge normally reserved for discovering a new keyboard shortcut.
+This was the "I have no idea what I'm doing" phase. I made more commits with messages like "please work" and "idk what this does". Learning that the terminal isn't just for cool hackers in movies was a revelation. When Jekyll finally built my site without 50 errors, I felt a power surge normally reserved for discovering a new keyboard shortcut.
 This sprint helped me understand the basics: VS Code, GitHub, the Terminal, and Jekyll.
 At first, GitHub was confusing because I didn’t understand how commits and pushes worked, but now it makes sense. Learning how the Terminal controls environments and how Jekyll builds my website made me feel like a real developer.
 
@@ -216,8 +214,8 @@ include ← (floor > 10) OR (bedrooms = 3)
 ### Q64 - Cloud Computing
 **Critical Consideration**: Security to protect users' private data
 
-## What concepts you misunderstood:
- undecidable problem and analyze data...
+## What concepts I misunderstood:
+ Undecidable problem, internet context and analyze data...
 
 I will read the data more carefully, and practice with similar questions
 

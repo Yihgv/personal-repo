@@ -74,72 +74,140 @@ Next semester, I want to learn:
 Our website was commented great, The final quiz were the greatest.I will improve the funny factor if I can do it again. 
 
 # 7. MCQ Review 🚦
-### 39/66
+### Score: 39/66
 
-corrections:
+## Corrections:
 
-Q1. The code segment assigns the initial value of first to temp, then assigns the initial value of second to first. The initial value of second, which has been stored in first, is then assigned to second. Therefore, the value of second has not changed from its initial value.
 
-Q7. The code segment initially sets start to 1, end to 20, and current to 3. Next, the code segment sets start to the value of current, which is 3. Then current is increased from 3 to 4. The final values of start and current are 3 and 4, respectively.
+### Q1 - Variable Swapping
+```pseudocode
+temp ← first
+first ← second
+second ← temp
+```
+**Analysis**: The code segment correctly swaps the values of `first` and `second` using a temporary variable.
 
-Q9. Incrementally adding code segments to correct, working programs can help programmers identify new errors that are introduced.
+### Q7 - Variable Assignment
+```pseudocode
+start ← 1
+end ← 20
+current ← 3
+start ← current
+current ← current + 1
+```
+**Final Values**: 
+- `start` = 3
+- `current` = 4
 
-Q12. The total number of registered users appears to be increasing by about 0.5 million each year, so in year 12, the number of users can be approximated at 31.2 million (30.2 + 0.5 + 0.5).
+### Q9 - Debugging Strategy
+**Technique**: Incrementally adding code segments to correct, working programs helps identify new errors as they are introduced.
 
-Q13. The average number of characters per message appears to decrease after the mobile app was released.
+### Q14 - Program Output Comparison
+**Program A**: Displays `1 2 3 4 5 6 7 8 9 10`
+**Program B**: Displays `2 3 4 5 6 7 8 9 10 11`
+**Difference**: Each value in Program B is one greater than the corresponding value in Program A.
 
-Q14.  The programs each display ten values, but each value displayed by program B is one greater than the
-corresponding value from program A. Program A displays 1 2 3 4 5 6 7 8 9 10 and program B displays  2 3 4 5 6 7 8 9 10 11.
+### Q28 - Character Encoding
+**Calculation**: 2⁸ = 256 characters
+**Conclusion**: 8 bits allow for up to 256 unique characters.
 
-Q22. This Boolean expression evaluates to true when counter (the number of temperatures greater than or equal to 90) is greater than 50% of total (the number of entries in the list).
+### Q30 - Execution Time Analysis
+**Procedure Calls**:
+- 1 call before loop
+- 4 calls inside loop (one for each list entry)
+**Total**: 5 calls × 1 hour each = 5 hours execution time
 
-Q23. Redundant routing is impossible if there is only one possible path from one device to another. There is only one possible path from P to S (P to R to Q to S).
+### Q33 - Boolean Logic
+**Flowchart Logic**: 
+```pseudocode
+include ← (floor > 10) OR (bedrooms = 3)
+```
 
-Q28. Using 8 bits will allow for up to 256 characters open parenthesis, 2 raised to the eighth power equals 256, close parenthesis.
+### Q38 - Conditional Cost
+**Condition**: `count MOD 10 = 0` evaluates to true when count is a multiple of 10
+**Effect**: Sets `cost` to 0 when condition is met
 
-Q30. Each call to the Analysis procedure requires one hour of program execution time. The procedure is called
-once before the loop, and then four times inside the loop (once for each of the four entries in One word, genre List). Therefore, the program will take approximately 5 hours to execute.
+### Q50 - Search Algorithm
+**Algorithm Type**: Linear search
+**Characteristics**: 
+- Sequentially compares each element
+- Works on unsorted lists
+- Stops when target found or end of list reached
 
-Q33. The flowchart sets include to true whenever floor is greater than 1 0 or bedrooms equal 3, and sets include to false otherwise. Therefore, the algorithm is equivalent to     Include, left arrow, open parenthesis, floor greater than 10, close parenthesis, OR, open parenthesis, bedrooms equal 3, close parenthesis.
+### Q54 - Generalization
+**Specific Procedures**: `square(n)` and `cube(n)`
+**Generalized Procedure**: `Power(n, m)` calculates nᵐ
 
-Q38. The expression count, MOD, 10 equals 0 evaluates to true when count is a multiple of 1 0, and so this
-code segment sets cost to 0 under the appropriate conditions.
+### Q55 - Logical Error
+**Expression**: `(response = "y") AND (response = "yes")`
+**Problem**: Always evaluates to false since response cannot equal both values simultaneously
 
-Q40. The average total points earned per student can be determined using the result of the total points calculation
-for each student. The average increase in total points per student as a result of the score replacement policy can be determined by
-calculating the differences between each student score before and after the replacement policy was applied. The proportion of students
-who improved their total points as a result of the score replacement policy can be determined by comparing the midterm and final scores for each student with the result of the total points calculation.
+### Q56 - Loop Analysis
+**Loop Behavior**:
+- `count` starts at 1, increments by 2
+- Iterates 10 times
+- Sums odd integers from 1 to 19
 
-Q43. The pattern in the table appears to indicate that there are n squared steps for a list containing n items. This number of steps is a polynomial and therefore the algorithm runs in reasonable time. 
+### Q60 - Data Abstraction
+**Example**: Creating a list of names
+**Benefit**: Makes program complexity easier to manage
 
-Q44. With a 4-bit integer representation, 2 to the fourth power values can be represented, which allows for the values between 0 to 1 5, inclusive. If an operation results in a value greater than 1 5, an overflow error will occur. Of the operations given in the options, only 10 plus 7 gives a result larger than 1 5.
+### Q65 - Loop Condition Issue
+**Problem**: If `y` is negative, loop condition `count = y` will never be true since `count` starts at 0 and increases.
 
-Q45. The expression P AND Q evaluates to true when both P and Q are true, and evaluates to false otherwise. Therefore, the expression NOT, open parenthesis, P AND Q, close parenthesis evaluates to false when both P and Q are true, and evaluates to true otherwise.
 
-Q46. An undecidable problem is one in which no algorithm can be constructed that always leads to a correct yes-or-no answer.
+### Q12 - User Growth Prediction
+**Pattern**: Increases by ~0.5 million users per year
+**Year 12 Prediction**: 30.2 + (2 × 0.5) = 31.2 million users
 
-Q50. The procedure implements a linear search, which sequentially compares each element of the list with the target value. The list does not need to be sorted because the procedure checks list elements until either the target is found or it reaches the end of the list.
+### Q13 - Character Trend
+**Observation**: Average characters per message decreased after mobile app release
 
-Q53. Machine learning is the process of a computer analyzing data in order to make predictions and decisions based on trends in the data.
+### Q22 - Boolean Condition
+**Expression**: `counter > (total / 2)`
+**Meaning**: True when number of temperatures ≥90° is greater than 50% of total entries
 
-Q54. The procedures square and cube are each used to determine a power of n. A generalization of this procedure
-is Power, open parenthesis, n comma m, close parenthesis, which calculates n raised to the mpower.
+### Q40 - Score Analysis
+**Determinable Metrics**:
+- Average total points per student
+- Average increase due to replacement policy  
+- Proportion of students who improved scores
 
-Q55. The expression open parenthesis, open parenthesis, response equals, open quotation, y, close quotation, close parenthesis, AND, open parenthesis, response equals, open quotation, yes, close quotation, close parenthesis, close parenthesisalways evaluates to false because it is not possible for the variable response to be equal to both Open quotation, y, close quotation and Open quotation, yes, close quotation. Therefore, the procedure will always
-return false.
+### Q43 - Algorithm Efficiency
+**Pattern**: n² steps for n items
+**Classification**: Polynomial time - runs in reasonable time
 
-Q56. The value of count starts at 1 and increases by twos, so it counts odd integers. The loop iterates 10
-times, adding each intermediate value of count each time. Therefore, the program displays the sum of the odd integers starting at 1 and ending at 19.
 
-Q58. The Internet can provide tools, information, and knowledge to crowdsourcing participants and can lower geographic barriers to potential participants. However, there exist problems that cannot be solved in reasonable time, even with a distributed approach.
+### Q44 - Overflow Error
+**4-bit Representation Range**: 0 to 15 (2⁴ = 16 values)
+**Overflow Operation**: 10 + 7 = 17 > 15
 
-Q60. Creating a list of names is an example of a data abstraction that may make it easier for a programmer to manage the complexity of a program.
+### Q45 - Boolean Algebra
+**Expression**: `NOT(P AND Q)`
+**Truth Table**: False only when both P and Q are true
 
-Q62. As any user has the ability to edit articles, there will be many opportunities for people with different perspectives to contribute.
+### Q46 - Undecidable Problems
+**Definition**: No algorithm can be constructed that always leads to a correct yes-or-no answer
 
-Q64. Cloud computing sites must consider security concerns in order to protect their users’ private data.
+### Q53 - Machine Learning
+**Definition**: Computer analyzing data to make predictions and decisions based on trends
 
-Q65. If y is negative, then the condition count equals y will never be met since count begins at 0 and repeatedly increases.
+
+### Q23 - Network Routing
+**Observation**: Only one path from P to S (P→R→Q→S)
+**Implication**: Redundant routing impossible with single path
+
+### Q58 - Crowdsourcing & Internet
+**Benefits**:
+- Provides tools, information, and knowledge
+- Lowers geographic barriers
+**Limitation**: Cannot solve problems that require unreasonable time
+
+### Q62 - Collaborative Editing
+**Advantage**: Multiple perspectives can contribute through editing
+
+### Q64 - Cloud Computing
+**Critical Consideration**: Security to protect users' private data
 
 ## What concepts you misunderstood:
  undecidable problem and analyze data...

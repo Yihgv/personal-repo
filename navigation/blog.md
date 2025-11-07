@@ -5,9 +5,13 @@ search_exclude: true
 permalink: /blogs/
 ---
 
+# A Blog Looking Back: My Growth This Semester 
+
+
 # 1. Comparing Yourself to the Beginning of the Year 💭
 
 ## What skills did you not have then, but have now?
+In September, my coding skills were basically limited to making text bold in Google Docs. VS Code was a mysterious rectangle, GitHub sounded like a hub for nerdy cats, and if you'd told me I'd be using a "terminal," I'd have assumed I was joining the CIA.
 At the beginning of the year, I barely knew how to use most of the tools in computer science. I didn’t really understand VS Code, GitHub, or how websites were structured. Now, after one semester of AP CSP, I have more understanding of writing code in both JavaScript and Python, I am able to build pages on my website, and organize my files correctly.
 
 ## How has your confidence changed?
@@ -22,18 +26,20 @@ Choose the 3 that apply (Tools, Fundamentals of JS/Python, West Coast Travel, Di
 
 ## Sprint 1: Tools
 
+This was the "I have no idea what I'm doing" phase. I made more commits with messages like "please work" and "idk what this does" than I'd like to admit. Learning that the terminal isn't just for cool hackers in movies was a revelation. When Jekyll finally built my site without 50 errors, I felt a power surge normally reserved for discovering a new keyboard shortcut.
 This sprint helped me understand the basics: VS Code, GitHub, the Terminal, and Jekyll.
 At first, GitHub was confusing because I didn’t understand how commits and pushes worked, but now it makes sense. Learning how the Terminal controls environments and how Jekyll builds my website made me feel like a real developer.
 
 ## Sprint 2: Fundamentals of JavaScript/Python
 
+The **Onboarding Adventure Hacks assignment** was my first solo coding victory. It was like giving a caveman a stick and coming back to find he'd built a slightly wobbly but functional chair. I was so proud.
 I learned loops, conditionals, variables, functions, and how programs process data.
 I feel a little more comfortable with Python because the syntax is cleaner, but I’m improving in JavaScript too.
 One assignment I’m proud of was the game hacks, it was the first assignment I did by myself, but I figured it out.
 
 ## Sprint 3: Digital Famine
 
-In this sprint, I worked with knowledges and used it to build my team's project. I learned what an AI API is and how to use it.
+In this sprint, I was getting used to code, I worked with knowledges and used it to build my team's project. I learned what an AI API is and how to use it.
 The part of my project that worked best was organizing the words of knowledges and showing it in a way that made sense. Even when code doesn't work, I learned to fix them piece by piece.
 
 # 3. N@tM (Night at the Museum) Reflection 🌃
@@ -41,7 +47,7 @@ The part of my project that worked best was organizing the words of knowledges a
 N@tM was exciting because I got to share my project with real visitors.
 People were curious about my project, and a few even said they liked the design and the idea behind it.
 One thing that surprised me was how explaining something out loud made me notice small improvements I could make.
-Next time, I’d prepare a shorter explanation and add more visuals and funny factors in my contexts so people will understand the project faster in a fun way.
+Next time, I’d prepare a shorter explanation and add more visuals and funny factors in my contexts so people will understand the project faster in a fun way.And free candy. Everything is better with free candy.
 
 # 4. Project Next Steps 💡
 
@@ -55,7 +61,8 @@ If I had more time, I would:
 
 - Add animations to make it more fun
 
-- Organize the code so it’s easier to update later
+- Organize my code so that future me doesn't want to punch past me in the face.
+
 
 # 5. What You Want to Learn Next in CompSci 🖥️
 
@@ -220,3 +227,4 @@ One cool thing this semester was finally fixing a bug that kept breaking my Java
 
 I also discovered shortcuts in VS Code, like selecting multiple lines at once, which made editing much faster.
 Overall, even though this semester was challenging, it was fun seeing myself improve.
+This semester was challenging, occasionally frustrating, and deeply fun. 
